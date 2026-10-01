@@ -149,8 +149,7 @@
   .tab:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
     outline: 2px solid var(--focus); outline-offset: 2px;
   }
-  /* Hallinta-näkymän alavälilehdet: sama .tabs/.tab kuin yläpalkissa,
-     tässä vain oma alaviiva ja rivitys erottamaan ne sivun sisällöstä. */
+  /* Hallinta-näkymän alavälilehdet: yläpalkin .tabs/.tab + alaviiva ja rivitys. */
   .admin-tabs { flex-wrap: wrap; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
 
   #banner { padding: 0 24px; }
@@ -161,11 +160,7 @@
 
   main { flex: 1; padding: 28px 24px 60px; }
 
-  /* Ingressin 640px-katto poistettiin kokonaan (oli aiemmin vain
-     Kirjastolle poistettu view-header-wide-luokalla) — jokaisen
-     päävalikon näkymän otsikko/ingressi käyttää nyt samaa leveyttä kuin
-     näkymän muu sisältö, koska ingressi rivittyi turhaan kapeampana kuin
-     esim. suodattimet/tulokset sen alla. */
+  /* Näkymän otsikko ja ingressi käyttävät koko sisältöleveyttä. */
   .view-header { margin-bottom: 24px; }
   .view-header h1 { font-size: 26px; }
   .view-header .lede { color: var(--muted); margin: 8px 0 0; font-size: 14.5px; }
@@ -183,21 +178,14 @@
   .btn.small { padding: 5px 10px; font-size: 12.5px; }
   .btn.ghost { border-color: transparent; background: none; }
   .btn.ghost:hover { border-color: var(--line); }
-  /* Toinen ensisijainen painike samalla painoarvolla kuin .btn.primary,
-     mutta ääriviivallinen — käytössä kun kahdesta rinnakkaisesta,
-     tasavertaisesta toiminnosta halutaan silti erottaa "pääsuunta"
-     (esim. Tee yhteistyötä -näkymän "Jaa valitut" täytetty / "Vastaanota
-     tietoja" ääriviivallinen). */
+  /* Ääriviivallinen ensisijainen painike, esim. "Vastaanota tietoja"
+     täytetyn "Jaa valitut" -painikkeen rinnalla. */
   .btn.ghost-primary { background: var(--surface); color: var(--accent); border-color: var(--accent); }
   .btn.ghost-primary:hover { background: var(--accent); color: var(--accent-ink); }
   .btn:disabled { opacity: .45; cursor: not-allowed; }
-  /* Natiivi <input type="file"> ei voi tyylitellä samannäköiseksi kuin
-     sovelluksen omat .btn-painikkeet (selain piirtää "Valitse tiedosto"
-     -osan itse) — input piilotetaan visuaalisesti (.visually-hidden, ei
-     display:none, jotta se pysyy saavutettavana) ja tilalle tulee tavallinen
-     .btn-luokkainen <label for="...">, joka avaa saman tiedostonvalitsimen.
-     .file-btn-label tarvitaan vain koska <label> on oletuksena inline eikä
-     inline-block kuten <button>, muuten .btn:n padding ei asetu oikein. */
+  /* Tiedostonvalinta: natiivi input piilotetaan visuaalisesti
+     (.visually-hidden) ja sen <label> tyylitellään .btn-painikkeeksi.
+     inline-block tarvitaan, jotta .btn:n padding toimii labelissa. */
   .file-btn-label { display: inline-block; }
   .file-btn-label.disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
 
@@ -206,19 +194,13 @@
     background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
     padding: 20px; margin-bottom: 28px; max-width: 640px;
   }
-  /* Osallistu- ja Hallinta-näkymien lomakkeet/listat levitetty samaan
-     leveyteen kuin niiden sisältö täyttäisi joka tapauksessa — muiden
-     näkymien (esim. yksittäisen listan tulostusesikatselu) lomakkeet
-     pysyvät oletusleveydessään. */
+  /* Hallinta-näkymän lomakkeet ja listat täysleveinä. */
   #adminTabContent .add-form { max-width: none; }
   #adminTabContent .lists-register { max-width: none; }
-  /* Listat-näkymän oma (ei-admin) listaus levenee samaan tapaan kuin
-     Kirjaston tulokset ja Hallinnan listat. */
+  /* Dokumentit-näkymän listaus täysleveänä. */
   #listsRegister { max-width: none; }
-  /* #addForm on nyt nelivaiheisen prosessin ulkoreuna (ks. .add-wizard-
-     columns alla) — oma .add-form-kortin tausta/reunaviiva/padding
-     poistetaan, koska .add-wizard-columns tarjoaa jo saman kehyksen;
-     ilman tätä syntyisi kaksinkertainen reunaviiva. */
+  /* #addForm on vaiheittaisen lomakkeen sisällä, jonka kehyksen
+     .add-wizard-shell piirtää. */
   #addForm.add-form { max-width: none; background: none; border: none; padding: 0; margin-bottom: 28px; }
   .field-row { margin-bottom: 14px; }
   .field-row label { display: block; font-size: 12.5px; color: var(--muted); margin-bottom: 5px; }
@@ -245,12 +227,8 @@
     font-weight: 600; margin-bottom: 10px;
   }
 
-  /* Osallistu: nelivaiheinen prosessi (Uusi vai muokkaus? / Teksti /
-     Luokittelu / Viimeistely). Vaakasuora askellista ylimpänä, sen alla
-     täysleveä esikatselurivi, sen alla aktiivisen vaiheen kentät —
-     ei enää sivupalstoja lainkaan (aiempi kolmen sarakkeen "rail + form +
-     preview" -asettelu koettiin liian ahtaaksi; "Vaihtoehto C" valittiin
-     mockup-artefaktista "Esikatselu ylös -vaihtoehdot", ks. CLAUDE.md). */
+  /* Osallistu: nelivaiheinen lomake. Ylimpänä vaakasuora askelrivi,
+     sen alla aktiivisen vaiheen kentät. */
   .add-wizard-shell { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
   .add-wizard-rail-h {
     display: flex; align-items: center; flex-wrap: wrap; gap: 4px; padding: 18px 20px;
@@ -281,11 +259,7 @@
     .add-wizard-rail-h .rail-connector { display: none; }
     .add-wizard-rail-step .step-summary { max-width: 90px; }
   }
-  /* Ei enää koko kuoren yläreunan täysleveä palkki (ks. "Layout
-     follow-up" CLAUDE.md:ssä siitä vaiheesta) — nyt tavallinen sisältölohko
-     vaiheen 4 ("Esikatselu ja hyväksyntä") sisällä. Oma tausta/reunaviiva
-     ei enää tarvita, koska sisällä oleva .req-card piirtää jo oman
-     kehyksensä; pelkkä väli alle riittää ennen Edellinen/Lisää-riviä. */
+  /* Vaiheen 4 esikatselu. */
   .add-wizard-preview-bar { margin-bottom: 4px; }
   .add-wizard-preview-bar .req-card { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
   .add-wizard-preview-bar .req-card-top { margin-bottom: 0; flex: none; }
@@ -296,13 +270,8 @@
   .add-wizard-form-col { padding: 22px; background: var(--surface); }
   .add-wizard-form-col .field-row { max-width: 480px; }
   .add-wizard-form-col .wizard-choice-cards, .add-wizard-form-col .wizard-nav { max-width: 640px; }
-  /* Jaettu kaksipalstainen asettelu vaiheille 2 (Teksti) ja 3
-     (Luokittelu) — kummassakin yksi avustava/valinnainen osa (fraasin
-     hakuvalitsin, hankinnan kohteet) oli aiemmin yhdessä pystysuorassa
-     pinossa muun sisällön kanssa ja hallitsi näkymää liikaa; molemmat
-     jaettiin kahteen palstaan käyttäjän pyynnöstä. Kummankin sisällä
-     olevat .field-row:t saavat leveytensä grid-sarakkeesta, ei yllä
-     olevasta 480px-katosta. */
+  /* Kaksipalstainen asettelu vaiheille 2 ja 3. Kenttien leveys tulee
+     grid-sarakkeesta. */
   .wizard-two-col { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; margin-bottom: 4px; }
   .wizard-two-col .field-row { max-width: none; }
   @media (max-width: 700px) { .wizard-two-col { grid-template-columns: 1fr; } }
@@ -318,8 +287,7 @@
   .wizard-choice-card .desc { font-size: 12px; color: var(--muted); }
   .wizard-choice-card.active { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 1px var(--accent); }
   .wizard-choice-card.active .title { color: var(--accent); }
-  /* Vaiheen 1 "Muokkaa olemassa olevaa" -hakutulosten oma toimintopari:
-     tekstillinen "Muokkaa tätä" -painike + pieni poisto-ikoni. */
+  /* Vaiheen 1 hakutulosten toiminnot: "Muokkaa tätä" + poisto-ikoni. */
   .req-card-pick-actions { display: flex; gap: 8px; align-items: center; flex: none; }
   .req-card-pick-actions .delete-existing-btn {
     width: 26px; height: 26px; border-radius: 5px; border: 1px solid transparent; background: none;
@@ -336,7 +304,7 @@
   }
   .toolbar input[type="search"] { flex: 1; min-width: 200px; }
 
-  /* Kirjasto: kategoriakortit (avattavat/suljettavat, ks. cat-card alla) */
+  /* Avattavat/suljettavat kortit (.cat-card/.cat-head/.cat-body) */
   .cat-card { border: 1px solid var(--line); border-radius: 6px; margin-bottom: 8px; background: var(--surface); }
   .cat-head {
     display: flex; align-items: center; gap: 8px; padding: 9px 14px; cursor: pointer;
@@ -349,10 +317,8 @@
     font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); font-weight: 400;
     background: var(--optional-bg); border-radius: 20px; padding: 2px 9px; flex: none;
   }
-  /* "Tulosten järjestäminen" -korttien yhdistäminen "Hakuehdot ja
-     suodattimet" -korttien kanssa (TODO-kohta 3, "vaihtoehto C" — ks.
-     CLAUDE.md): järjestysvalinta siirtyi otsikkoriville badgen viereen,
-     näkyvissä/käytettävissä riippumatta onko kortti auki vai kiinni. */
+  /* Suodatinkortin otsikkorivin säätimet: badge ja järjestysvalikko,
+     käytettävissä myös kortin ollessa kiinni. */
   .cat-head-controls { display: flex; align-items: center; gap: 10px; flex: none; }
   .header-sort-select {
     border: 1px solid var(--line); border-radius: 20px; background: var(--surface); color: var(--ink);
@@ -365,10 +331,8 @@
   .row-actions button:hover { color: var(--accent); }
   .row-actions button.delete:hover { color: var(--danger); }
 
-  /* Kirjaston vaatimuskortit ("Vaihtoehto C" kolmesta mockupista) — ja nyt
-     myös editorin "Valittavat"/"Valitut" -välilehdet (ks. .add-to-list-btn/
-     .sel-num/.sel-actions alempana), lisäyslomakkeen esikatselu ja "Tee
-     yhteistyötä" -näkymän jakopoiminta. */
+  /* Vaatimuskortit: Kirjasto, Osallistun esikatselu ja haku, editorin
+     Valittavat/Valitut sekä Tee yhteistyötä. */
   .req-cards { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
   .req-card {
     background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--optional);
@@ -394,12 +358,7 @@
   .req-chip-owner { --chip-color: var(--accent); }
   .req-card-attribution { display: block; font-size: 11px; color: var(--muted); }
 
-  /* Hankinnan kohteet vaatimuskortilla: korostettu, täytetty pillirivi
-     .req-card-top:n ja .req-card-text:n välissä (TODO-sparraus, "Korostettu
-     pillirivi" valittu kolmesta mockupatusta vaihtoehdosta) — eri visuaalinen
-     paino kuin ääriviivalliset .req-chip-kategoria/-alakategoria/-omistaja-
-     merkit, koska nämä ovat vaatimuksen "otsikkomainen" luokittelu, ei vain
-     yksi metatieto muiden joukossa. */
+  /* Hankinnan kohteet vaatimuskortilla: täytetty pillirivi. */
   .target-pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
   .target-pill {
     background: var(--target); color: var(--target-ink); font-weight: 600; font-size: 12.5px;
@@ -423,11 +382,8 @@
   .list-card .meta p + p { margin-top: 2px; }
   .list-card .actions { display: flex; gap: 8px; flex: none; }
 
-  /* Hankinnan kohteet -hallintanäkymä: ryhmitelty Omistajan mukaan (ainoa
-     taustatietokokoelma joka viittaa toiseen), ei jaettu Kategoriat/
-     Alakategoriat/Omistajat-välilehtien tasaisen listan kanssa — jokainen
-     Omistaja saa oman laatikkonsa ja oman lisäysrivinsä, jotta sidos näkyy
-     suoraan käyttöliittymässä eikä vain lomakkeen yhtenä kenttänä. */
+  /* Hankinnan kohteet -hallinta: oma laatikko ja lisäysrivi kullekin
+     Omistajalle. */
   .owner-target-group {
     background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
     padding: 14px 16px; margin-bottom: 14px;
@@ -440,8 +396,8 @@
   .owner-target-head .count { font-size: 12px; color: var(--muted); }
   .owner-target-add-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 
-  /* "Hankinnan kohde" -suodatinpaneelin Omistaja-ryhmät (jaettu kaikkien
-     neljän suodatuskortin kesken, ks. procurementTargetFilterPanelHtml()). */
+  /* "Hankinnan kohde" -suodatinpaneelin Omistaja-ryhmät
+     (procurementTargetFilterPanelHtml()). */
   .owner-subgroup { margin-bottom: 12px; }
   .owner-subgroup:last-of-type { margin-bottom: 0; }
   .owner-subgroup h4 {
@@ -476,9 +432,7 @@
   .combo-option:hover { background: var(--paper); }
   .combo-option .owner-hint { font-size: 11.5px; color: var(--muted); font-family: "IBM Plex Mono", monospace; flex: none; }
 
-  /* Osallistu-lomakkeen fraasin hakuvalitsin: kategoriasuodatus + hakukenttä
-     samassa paneelissa, tulokset listana alla (ks. CLAUDE.md "Osallistu:
-     fraasin hakuvalitsin"). */
+  /* Osallistu-lomakkeen fraasin hakuvalitsin: hakukenttä ja tuloslista. */
   .phrase-picker { border: 1px solid var(--line); border-radius: 6px; margin-bottom: 8px; overflow: hidden; }
   .phrase-picker-filters { padding: 10px 12px; background: var(--paper); border-bottom: 1px solid var(--line); }
   .phrase-picker-list { max-height: 280px; overflow-y: auto; }
@@ -488,11 +442,7 @@
   .phrase-picker-item .cat-hint { display: block; font-size: 11px; color: var(--muted); font-family: "IBM Plex Mono", monospace; margin-top: 2px; }
   .phrase-picker-empty { padding: 12px; text-align: center; color: var(--muted); font-size: 12.5px; }
 
-  /* Bare-otsikko, jaettu useamman näkymän kesken: Kirjastossa "Haun
-     tulokset (N)", Tee yhteistyötä -näkymässä "Valittavat vaatimukset
-     (N)" — ei enää omaa .stage-kääre-diviä/-ledeä, molemmat oli poistettu
-     omista näkymistään kun editorin ja Tee yhteistyötä -näkymän
-     kaksivaiheiset osiot yhdistettiin yhdeksi jatkuvaksi näkymäksi. */
+  /* Tuloslistan otsikko, esim. "Haun tulokset (N)". */
   .stage-title { font-size: 17px; margin: 0 0 4px; }
   /* --- Etusivu --- */
   .home-hero { margin-bottom: 22px; }
@@ -502,9 +452,7 @@
     background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
     padding: 24px;
   }
-  /* Dismissattava tulosraportti-kortti — seed-alustus (Hallinta) ja
-     yhteistyö-tuonti (Tee yhteistyötä) käyttävät molemmat tätä samaa,
-     nimestä yleistettyä ulkoasua. */
+  /* Suljettava tulosraportti (seed-alustus ja yhteistyö-tuonti). */
   .result-card {
     background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
     padding: 14px 16px; margin-bottom: 20px;
@@ -513,12 +461,7 @@
   .result-card-title { font-weight: 600; font-size: 14px; }
   .result-card-line { margin: 0 0 6px; font-size: 13.5px; color: var(--ink); }
   .result-card-line:last-child { margin-bottom: 0; }
-  /* Tee yhteistyötä -näkymän "Toiminnot"-rivi: sijaitsee hakuehtojen ja
-     valittavien vaatimusten listan välissä, ei enää näkymän alaosan
-     vientipalkkina (ks. "'Toiminnot' card: export and import share one
-     action bar" CLAUDE.md:ssä). Oma, bordered-kortti-tyylinen sääntönsä
-     (ei kirjaimellisesti .cat-card, vain visuaalisesti samankaltainen),
-     jotta se erottuu omaksi, tasavertaiseksi kortikseen suodatinkortin ja
+  /* Tee yhteistyötä -näkymän "Toiminnot"-rivi suodatinkortin ja
      tuloslistan välissä. */
   .collab-actions-bar {
     display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
@@ -598,13 +541,7 @@
 
   .pick-checkbox { margin-top: 3px; flex: none; width: 16px; height: 16px; accent-color: var(--accent); }
 
-  /* Editorin "Hakuehdot ja suodattimet" -pääosio — sama .cat-card/.cat-head/
-     .cat-body -kaavio kuin Kirjasto-näkymän vastaavilla korteilla,
-     section-card vain hieman isompi/väljempi koska tämä on editorin ainoa
-     avattava pääosio, ei pieni toistuva rivi. Jaettu editorin ja Kirjaston
-     "Hakuehdot ja suodattimet" -kortin kesken. "Valittavat"/"Valitut" ovat
-     sen alla omana .tabs/.tab-välilehtiparinaan, eivät enää cat-card-
-     osioita (ks. "Editor layout" CLAUDE.md:ssä). */
+  /* Isompi .cat-card-osio "Hakuehdot ja suodattimet" -korteille. */
   .section-card { margin-bottom: 16px; }
   .section-card .cat-head { font-size: 15px; padding: 12px 16px; }
   .section-card .cat-body { padding: 6px 16px 16px; }
@@ -613,9 +550,7 @@
     padding: 8px 10px; color: var(--ink);
   }
 
-  /* "Hakuehdot ja suodattimet" -korttien välilehdet (Kategoria/Alakategoria/
-     Omistaja/Hakusana) — sama tab-kieli kuin yläpalkin nav.tabs:ssa, vain
-     kevyempi versio kortin sisälle. Jaettu editorin ja Kirjaston kesken. */
+  /* "Hakuehdot ja suodattimet" -korttien välilehdet. */
   .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
   .filter-tab {
     border: none; background: none; padding: 7px 4px; margin-right: 16px;
@@ -625,8 +560,7 @@
   .filter-tab:hover { color: var(--ink); }
   .filter-tab.active { color: var(--ink); border-bottom-color: var(--accent); }
   .filter-tab .count { color: var(--muted); font-weight: 400; }
-  /* Suodattimen arvot on/off-painikkeina checkbox-listan sijaan, aakkos-
-     järjestyksessä (managed*Names() palauttaa jo sortFi-järjestyksen). */
+  /* Suodattimen arvot on/off-painikkeina. */
   .filter-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
   .filter-toggle-btn {
     border: 1px solid var(--line); background: var(--surface); color: var(--ink);
@@ -636,13 +570,8 @@
   .filter-toggle-btn:hover { border-color: var(--accent); }
   .filter-toggle-btn.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 
-  /* "Ajan mukaan" -välilehti (jaettu Tutustu/editori/Osallistu/Tee
-     yhteistyötä -korttien kesken, ks. timeFilterPanelHtml()): ylin rivi on
-     valmiit pikavalinnat, joita klikkaamalla koko aikavalinta korvautuu
-     yhdellä yhdistelmällä; "Näytä tarkemmat valinnat" avaa alle
-     .filter-buttons/.filter-toggle-btn-tyyliset (sama ulkoasu kuin
-     Kategoria/Omistaja ym.) vuosi-/kuukausi-/aikaväliryhmät ristiin
-     yhdisteltäväksi. */
+  /* "Ajan mukaan" -välilehti (timeFilterPanelHtml()): pikavalinnat ja
+     avattavat vuosi-/kuukausi-/aikaväliryhmät. */
   .time-quick-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
   .time-quick-chip {
     border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 8px;
@@ -661,23 +590,17 @@
     font-weight: 600; margin: 0 0 8px;
   }
 
-  /* Editorin "Valittavat"/"Valitut" -välilehdet: sama .tabs/.tab kuin
-     yläpalkissa ja Hallinta-alavälilehdissä, vain oma alaviiva/marginaali
-     erottamaan ne Hakuehdot-kortista yllä. */
+  /* Editorin Valittavat/Valitut-välilehdet. */
   .editor-tabs { border-bottom: 1px solid var(--line); margin-bottom: 16px; }
-  /* "Valittavat"-kortin "+ Lisää listalle" -pilleri korvaa Kirjaston
-     muokkaus-/poistokuvakkeet .req-card-top:n oikeassa reunassa. */
+  /* Valittavat-kortin "+ Lisää dokumentille" -painike. */
   .add-to-list-btn {
     border: 1px solid var(--accent); background: var(--surface); color: var(--accent); border-radius: 20px;
     padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; font-family: inherit;
   }
   .add-to-list-btn:hover { background: var(--accent); color: var(--accent-ink); }
 
-  /* "Valitut"-kortin yläriviltä löytyy kolmas elementti (järjestysnumero)
-     tyyppimerkinnän vasemmalla puolella — .req-card-top-left niputtaa ne
-     yhdeksi lohkoksi niin että .req-card-top pysyy kahden lapsen
-     space-between-rivinä (ks. ".list-card"-huomio CLAUDE.md:ssä samasta
-     rajoituksesta). */
+  /* Valitut-kortin yläriville järjestysnumero ja tyyppi yhtenä lohkona,
+     jotta .req-card-top pysyy kahden lapsen space-between-rivinä. */
   .req-card-top-left { display: flex; align-items: center; gap: 8px; }
   .sel-num { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
   .sel-actions { display: flex; align-items: center; gap: 6px; flex: none; }
@@ -707,9 +630,8 @@
   }
   .print-doc { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 48px 56px; max-width: 720px; margin: 0 auto; }
   .print-doc + .print-doc { margin-top: 32px; }
-  /* Ohje-näkymän oma artikkeli (ei tulostettavat listadokumentit) käyttää
-     samaa leveyttä kuin muut näkymät sen sijaan että pysyisi kapeana
-     paperisivun levyisenä ja keskitettynä. */
+  /* Ohje-näkymän artikkeli täysleveänä (tulostettavat dokumentit pysyvät
+     sivun levyisinä). */
   .print-doc-wide { max-width: none; margin: 0; }
   .print-head { margin-bottom: 32px; border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
   .print-head h1 { font-size: 28px; margin-bottom: 6px; }
@@ -719,11 +641,8 @@
   .print-group ol li { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); align-items: flex-start; }
   .print-group ol li:last-child { border-bottom: none; }
   .print-group ul li { margin-bottom: 4px; }
-  /* Ohje-osioiden numeroidut toimenpidelistat (helpSectionHtml(), block-
-     muoto {items:[...]}) käyttävät samaa <ol>-elementtiä kuin tulostetun
-     listan vaatimusrivit (.print-group ol li yllä) — ilman tätä uudelleen-
-     asetusta ne perisivät list-style:none-numeroinnin poiston sekä rivien
-     flex/reunaviiva-ulkoasun. .help-steps on siksi oma, tarkempi luokka. */
+  /* Ohjeen numeroidut toimenpidelistat: ohittaa .print-group ol li
+     -säännöt. */
   .print-group ol.help-steps { list-style: decimal; }
   .print-group ol.help-steps li {
     display: list-item; padding: 0; border-bottom: none; margin-bottom: 6px;
@@ -731,12 +650,8 @@
   .print-group ol.help-steps li:last-child { margin-bottom: 0; }
   .print-group p { margin: 0; font-size: 14px; flex: 1; }
 
-  /* Dokumentin tuloste/esikatselu (printDocHtml()): perustiedot-laatikko +
-     tyypin mukaan (Pakollinen/Pisteytettävä/Valinnainen) ryhmitellyt
-     kolmilohkoiset vaatimuskortit — ks. "Print document redesign"
-     CLAUDE.md:ssä. Omat luokkansa, ei jaettu Ohjeen .print-group:in kanssa,
-     koska rakenne (tyyppiotsikko + kortit) on kokonaan erilainen kuin
-     Ohjeen numeroidut toimenpidelistat samalla print-tyylillä. */
+  /* Dokumentin tuloste (printDocHtml()): perustietolaatikko ja tyypin
+     mukaan ryhmitellyt kolmilohkoiset vaatimuskortit. */
   .print-header-block { margin-bottom: 30px; }
   .print-header-block h1 { font-size: 26px; margin-bottom: 16px; }
   .print-info-box {
@@ -815,7 +730,7 @@
 
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 
-  /* --- Vahvistusikkuna (korvaa natiivin confirm(), joka ei toimi kaikissa ympäristöissä) --- */
+  /* --- Vahvistusikkuna --- */
   .confirm-overlay {
     position: fixed; inset: 0; background: rgba(20, 24, 27, 0.45);
     display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 1000;
@@ -1000,14 +915,9 @@
     document.getElementById("confirmOverlay").hidden = true;
   }
 
-  // Puhdas ilmoitusdialogi (yksi "OK"-painike, ei valintaa) — käytetään
-  // silloin kun virheilmoitus koskee itse kortin/rivin poistoa
-  // (esim. "kategoriaa käytetään") eikä lomakekentän validointia. Toisin
-  // kuin lomakevalidoinnin bannerit (showCategoryMessage ym., joilla ei
-  // ole tätä ongelmaa koska ne liittyvät aina näkyvissä olevaan
-  // lomakkeeseen), listan yläreunaan piirretty banneri jäisi käyttäjältä
-  // huomaamatta, jos hän poistaa pitkän listan alaosassa olevan rivin —
-  // dialogi näkyy aina, riippumatta vieritystilanteesta.
+  // Ilmoitusdialogi yhdellä OK-painikkeella. Käytetään, kun rivin
+  // poisto estetään (esim. kategoria on käytössä), jotta ilmoitus näkyy
+  // vierityskohdasta riippumatta.
   function showAlert(message) {
     document.getElementById("alertMessage").textContent = message;
     document.getElementById("alertOverlay").hidden = false;
@@ -1033,8 +943,8 @@
     return state.lists.filter(function (l) { return l.companyId === companyId; }).length;
   }
 
-  // Hankinnan kohde on käytössä jos jokin vaatimus kantaa sitä tagina TAI
-  // jokin lista on valinnut sen omaksi (yksittäiseksi) hankinnan kohteekseen.
+  // Hankinnan kohde on käytössä, jos jokin vaatimus tai dokumentti viittaa
+  // siihen.
   function procurementTargetUsageCount(targetName) {
     var reqCount = state.requirements.filter(function (r) { return (r.procurementTargets || []).indexOf(targetName) !== -1; }).length;
     var listCount = state.lists.filter(function (l) { return listProcurementTargets(l).indexOf(targetName) !== -1; }).length;
@@ -1065,9 +975,7 @@
     return state.companies.some(function (c) { return c.id !== excludeId && c.name.trim().toLowerCase() === lower; });
   }
 
-  // Ainutlaatuisuus tarkistetaan vain saman Omistajan sisällä — eri
-  // Omistajilla voi olla samanniminen hankinnan kohde, koska ne eivät liity
-  // toisiinsa millään tavalla.
+  // Nimen ainutlaatuisuus tarkistetaan saman Omistajan sisällä.
   function procurementTargetNameExists(name, industry, excludeId) {
     var lower = name.trim().toLowerCase();
     return state.procurementTargets.some(function (t) { return t.id !== excludeId && t.industry === industry && t.name.trim().toLowerCase() === lower; });
@@ -1167,10 +1075,8 @@
     return tag === "TEXTAREA" || tag === "SELECT" || (tag === "INPUT" && el.type !== "checkbox" && el.type !== "radio");
   }
 
-  // Käyttäjä on saattanut ehtiä täyttää lisäyslomaketta (teksti, kategoria…)
-  // ja siirtyä hetkeksi pois fokuksesta (esim. klikkaamaan radiopainiketta)
-  // juuri kun pollaus osuu kohdalle. isUserTyping() ei yksin riitä tähän
-  // väliin, joten tarkistetaan myös lomakkeiden sisältö suoraan.
+  // Onko jossain lisäyslomakkeessa tallentamatonta sisältöä? Estää
+  // pollausta nollaamasta keskeneräistä lomaketta.
   function hasUnsavedFormInput() {
     var forms = ["addForm", "addCategoryForm", "addSubcategoryForm", "addIndustryForm", "addCompanyForm", "addPhraseForm"];
     var formsHaveInput = forms.some(function (id) {
@@ -1188,9 +1094,8 @@
       var ptHiddenInput = addFormEl.querySelector('input[type="hidden"][name="procurementTargets"]');
       if (ptHiddenInput && ptHiddenInput.value.trim() !== "") return true;
     }
-    // Omistajakohtaiset "uusi hankinnan kohde" -lisäysrivit Hallinnassa eivät
-    // ole yhden kiinteän lomake-id:n takana (yksi per Omistaja-ryhmä), joten
-    // niitä ei voi tarkistaa forms-listan kautta — tarkistetaan luokan kautta.
+    // Hankinnan kohteiden lisäysrivejä on yksi per Omistaja, joten ne
+    // tarkistetaan luokan perusteella.
     return Array.prototype.some.call(document.querySelectorAll(".procurement-target-new-input"), function (el) {
       return el.value.trim() !== "";
     });
@@ -1238,10 +1143,8 @@
     document.getElementById("apiKeyOverlay").hidden = true;
   }
 
-  // Näyttää "Vaihda avain" -painikkeen yläpalkissa vain, kun selaimeen on
-  // tallennettu avain (eli autentikointi on käytössä ja onnistunut) —
-  // asennuksissa ilman API_KEYS-muuttujaa avainta ei koskaan tallenneta,
-  // joten painike pysyy piilossa turhaa hämmennystä välttääkseen.
+  // Näyttää "Vaihda avain" -painikkeen vain, kun selaimeen on tallennettu
+  // avain.
   function updateSwitchKeyButtonVisibility() {
     var btn = document.getElementById("switchApiKeyBtn");
     if (btn) btn.hidden = !getApiKey();
@@ -1313,9 +1216,8 @@
     state.phrasesLoaded = true;
     state.procurementTargetsLoaded = true;
     state.apiKeyInfo = data.apiKeyInfo || null;
-    // Avaimen oletusomistaja esitäyttää Kirjasto-suodattimen vain kerran,
-    // alkulatauksessa — ei jokaisella pollauksella, ettei se ylikirjoita
-    // käyttäjän myöhemmin itse tekemää suodatinvalintaa.
+    // Avaimen oletusomistaja asetetaan Kirjasto-suodattimeen vain kerran,
+    // ensimmäisellä latauksella.
     if (!state.apiKeyDefaultsApplied) {
       state.apiKeyDefaultsApplied = true;
       var keyIndustry = state.apiKeyInfo && state.apiKeyInfo.industry;
@@ -1670,11 +1572,7 @@
   }
 
   // ---------- Renderöinti ----------
-  // Kategoriat/Alakategoriat/Omistajat/Yritykset/Fraasit ovat "Hallinta"-
-  // näkymän välilehtiä (ks. tplAdmin()), eivät enää omia päävalikon
-  // kohteitaan — state.view kantaa silti niiden oman arvonsa suoraan
-  // (esim. "categories"), koska se kertoo samalla kummalla admin-
-  // alavälilehdellä ollaan, eikä erillistä state.adminTab-kenttää tarvita.
+  // Hallinta-näkymän alavälilehdet tunnistetaan suoraan state.view-arvosta.
   var ADMIN_VIEWS = ["categories", "subcategories", "industries", "procurementTargets", "companies", "phrases"];
 
   function render() {
@@ -1704,12 +1602,8 @@
     return state.companies.map(function (c) { return c.name; }).sort(sortFi);
   }
 
-  // Toisin kuin kategoria/alakategoria/omistaja, lisääjällä/muokkaajalla
-  // ei ole omaa ylläpidettyä listaansa (nimi tulee API-avaimesta, ks.
-  // "Requirement attribution" CLAUDE.md:ssä) —
-  // suodatinvälilehden vaihtoehdot lasketaan siis suoraan siitä, mitä
-  // nimiä vaatimuksista oikeasti löytyy, ei mistään erillisestä
-  // rekisteristä. Vaatimukset joilta tieto puuttuu eivät tuota vaihtoehtoa.
+  // Lisääjä-/Muokkaaja-suodattimen vaihtoehdot: vaatimuksista löytyvät
+  // eri nimet aakkosjärjestyksessä.
   function distinctFieldNames(field) {
     var seen = {};
     var names = [];
@@ -1744,8 +1638,8 @@
     return html;
   }
 
-  // Sama periaate kuin categoryOptionsForSelect, mutta kategoria on tässä
-  // valinnainen (fraasin oletuskategoria) — mukana aina tyhjä vaihtoehto.
+  // Kuten categoryOptionsForSelect, mutta mukana tyhjä vaihtoehto
+  // (fraasin oletuskategoria on valinnainen).
   function categoryOptionsForSelectOptional(selected) {
     var cats = managedCategoryNames();
     if (selected && cats.indexOf(selected) === -1) {
@@ -1759,8 +1653,8 @@
     return html;
   }
 
-  // Sama periaate kuin categoryOptionsForSelect, mutta alakategoria on
-  // valinnainen: mukana on aina tyhjä "Ei alakategoriaa" -vaihtoehto.
+  // Kuten categoryOptionsForSelect, mutta mukana tyhjä "Ei alakategoriaa"
+  // -vaihtoehto.
   function subcategoryOptionsForSelect(selected) {
     var subs = managedSubcategoryNames();
     if (selected && subs.indexOf(selected) === -1) {
@@ -1788,18 +1682,15 @@
     return html;
   }
 
-  // API-avaimen oletusomistaja uuden vaatimuksen lomakkeelle — vain jos
-  // sellainen on asetettu JA se yhä on olemassa omistajien joukossa
-  // (ei haluta ehdottaa poistettua/nimenmuutoksen läpikäynyttä omistajaa).
+  // API-avaimen oletusomistaja uuden vaatimuksen lomakkeelle, jos se on
+  // asetettu ja löytyy omistajista.
   function defaultIndustryForNewForm() {
     var def = state.apiKeyInfo && state.apiKeyInfo.industry;
     if (!def) return "";
     return state.industries.some(function (i) { return i.name === def; }) ? def : "";
   }
 
-  // Yritys on listalle valinnainen, ja siihen viitataan id:llä (ei nimellä
-  // kuten kategoria/alakategoria/omistaja), koska yritystietue kantaa useita
-  // kenttiä eikä pelkkää nimeä.
+  // Dokumentin yritys on valinnainen ja siihen viitataan id:llä.
   function companyOptionsForSelect(selectedId) {
     var comps = state.companies.slice().sort(function (a, b) { return sortFi(a.name, b.name); });
     var html = '<option value=""' + (selectedId ? "" : " selected") + ">Ei yritystä</option>";
@@ -1820,10 +1711,8 @@
   ];
   var HOME_TOP_CATEGORIES = 5;
 
-  // Jokaisen näkymän oma ingressi on tarkoituksella sama teksti kuin
-  // Etusivun vastaavan painikkeen kuvaus — luetaan tästä yhdestä
-  // paikasta sen sijaan että sama teksti olisi kirjoitettu kahteen
-  // paikkaan, jotta ne eivät voi ajautua erilleen toisistaan.
+  // Näkymän ingressi luetaan Etusivun painikkeen kuvauksesta
+  // (HOME_ACTIONS).
   function homeActionLede(view) {
     var action = HOME_ACTIONS.filter(function (a) { return a.view === view; })[0];
     return action ? action.lede : "";
@@ -1895,24 +1784,10 @@
     );
   }
 
-  // Kaksi sisäistä välilehteä: "Lisää uusi" (nykyinen lisäyslomake,
-  // ennallaan) ja "Muokkaa tai poista" (uusi — siirretty Tutustu-
-  // näkymästä, ks. "Osallistu: 'Lisää uusi' / 'Muokkaa tai poista' tabs"
-  // CLAUDE.md:ssä).
-  // Molemmat paneelit renderöidään aina, vain toinen piilotetaan
-  // hidden-attribuutilla — välilehden vaihto ei siis koskaan kutsu
-  // render()/tplAdd():ta uudelleen (mikä nollaisi lisäyslomakkeen
-  // kesken kirjoitetun tekstin), vain vaihtaa mikä paneeli näkyy.
-  // Osallistu: nelivaiheinen prosessi (Uusi vai muokkaus? / Teksti /
-  // Luokittelu / Viimeistely). Kaikki neljä vaihetta ovat aina DOM:ssa
-  // saman <form id="addForm">:in sisällä, vain [data-wizard-step]-jaon
-  // hidden-attribuutti vaihtuu — sama "ei render()-kutsua askelten
-  // välillä" -periaate kuin vanhalla kahden välilehden mallilla (ks.
-  // CLAUDE.md), jottei kesken kirjoitettu teksti katoaisi askelta
-  // vaihdettaessa. Korvaa kokonaan vanhan "Lisää uusi"/"Muokkaa tai
-  // poista" -välilehtiparin: "Uusi vai muokkaus?" (vaihe 1) sisältää nyt
-  // saman haku/suodatinapparaatin ("addEdit*"-nimet säilytetty, ks. alla)
-  // jota "Muokkaa tai poista" -välilehti ennen käytti.
+  // Osallistu: nelivaiheinen lomake. Kaikki vaiheet ovat aina DOM:ssa
+  // saman <form id="addForm">:in sisällä ja vain [data-wizard-step]-
+  // elementtien hidden-attribuutti vaihtuu, jotta syötetyt tiedot säilyvät
+  // vaiheiden välillä.
   var ADD_WIZARD_STEPS = [
     { step: 1, label: "Toimenpiteen valinta" },
     { step: 2, label: "Teksti" },
@@ -1967,9 +1842,8 @@
     if (el) el.outerHTML = addWizardRailHtml();
   }
 
-  // Askelten vaihto (Seuraava/Edellinen/railin klikkaus) on pelkkä DOM-
-  // näkyvyyden vaihto, ei koskaan render()/tplAdd()-kutsu — ks. yllä
-  // oleva kommentti.
+  // Vaiheen vaihto muuttaa vain näkyvyyttä, ei renderöi lomaketta
+  // uudelleen.
   function goToAddWizardStep(step) {
     state.addWizardStep = step;
     if (step > (state.addWizardMaxStep || 1)) state.addWizardMaxStep = step;
@@ -1993,11 +1867,10 @@
     return true;
   }
 
-  // Tyhjentää lomakkeen kentät oletusarvoihinsa — käytössä sekä "Lisää
-  // uusi" -kortin klikkauksessa (hylkää mahdollisesti ladatun muokattavan
-  // vaatimuksen tiedot) että onnistuneen tallennuksen jälkeen. Sama
-  // "form.reset() + tyyppi-/hankinnan kohde -korjaus" kuin vanhalla
-  // lomakkeella oli aiemmin suoraan submit-käsittelijässä.
+  // Tyhjentää lomakkeen kentät oletusarvoihinsa ("Lisää uusi" -valinta ja
+  // tallennuksen jälkeen). form.reset() ei palauta tyyppipainikkeiden
+  // .active-luokkaa eikä hankinnan kohteiden ryhmää, joten ne korjataan
+  // erikseen.
   function resetAddWizardFields() {
     var form = document.getElementById("addForm");
     if (!form) return;
@@ -2027,11 +1900,7 @@
     if (el) el.innerHTML = addWizardStep1Html();
   }
 
-  // Tallennuksen (uusi tai muokkaus) jälkeen prosessi palaa aina
-  // vaiheeseen 1 ilman valittua tilaa — sama "aloita alusta" -periaate
-  // jokaiselle uudelle toimenpiteelle, ei "jatka seuraavaan" -oikotietä,
-  // jotta käyttäjä aina vahvistaa tietoisesti onko seuraava toimenpide
-  // uuden lisäys vai jonkin muokkaus.
+  // Tallennuksen jälkeen lomake palaa vaiheeseen 1 ilman valittua tilaa.
   function resetAddWizardAfterSave() {
     state.addWizardMode = null;
     state.addWizardEditingId = null;
@@ -2180,11 +2049,8 @@
     );
   }
 
-  // Fraasin hakuvalitsin Osallistu-lomakkeella: pelkkä tekstihaku (ks.
-  // CLAUDE.md — kategoriasuodatus poistettiin myöhemmin tarpeettomana).
-  // Oma suodatintila (phrasePickerSearch), erillinen Fraasit-hallinnan
-  // omasta (phraseSearch) samaan tapaan kuin muutkin tämän tiedoston
-  // näkymäkohtaiset suodattimet.
+  // Fraasin hakuvalitsin Osallistu-lomakkeella: tekstihaku omalla
+  // tilallaan (state.phrasePickerSearch).
   function phrasePickerFilteredPhrases() {
     var q = state.phrasePickerSearch.trim().toLowerCase();
     return state.phrases.filter(function (p) {
@@ -2227,14 +2093,9 @@
     if (el) el.innerHTML = phrasePickerListHtml();
   }
 
-  // Vaiheen 1 ("Uusi vai muokkaus?") "Muokkaa olemassa olevaa" -haku: sama
-  // "Hakuehdot ja suodattimet" -kortti (Kategoria/Alakategoria/Omistaja/
-  // Hankinnan kohde/Ajan mukaan/Hakusana) kuin Tee yhteistyötä -näkymässä.
-  // "addEdit*"-nimet ovat peräisin tätä ennen olleesta "Muokkaa tai
-  // poista" -välilehdestä (ks. CLAUDE.md) — säilytetty ennallaan, koska
-  // itse haku/suodatuslogiikka ei muuttunut, vain sen sijainti prosessin
-  // sisällä. Ilman hakua/suodatinta näkyvät kaikki vaatimukset, samaan
-  // tapaan kuin Tutustu-näkymässä oletuksena.
+  // Vaiheen 1 "Muokkaa olemassa olevaa" -haku: "Hakuehdot ja suodattimet"
+  // -kortti omalla tilallaan (state.addEdit*). Ilman suodattimia näkyvät
+  // kaikki vaatimukset.
   function addEditPool() {
     var q = state.addEditSearch.trim().toLowerCase();
     var catFilter = state.addEditCategoryFilter;
@@ -2365,28 +2226,16 @@
     );
   }
 
-  // Elävä esikatselu "Lisää uusi vaatimus" -lomakkeen alla: näyttää heti
-  // miltä vaatimus näyttäisi Kirjasto-listauksessa nykyisillä lomakkeen
-  // arvoilla — sama .req-card-merkkaus/luokat kuin reqRowHtml():n oma
-  // vaatimuskortti (ks. hueChipHtml), ilman muokkaus/poisto-ikoneita ja
-  // lisääjä/muokkaaja-riviä (ei mielekkäitä vielä tallentamattomalle
-  // vaatimukselle). Päivittyy jokaisesta #addForm:in input/change-
-  // tapahtumasta (ks. updateAddFormPreview()) sekä lomakkeen nollauksen
-  // jälkeen.
-  // Tarkennus/perustelu ja Hyväksyntäehto ovat kumpikin valinnaisia,
-  // samannäköisiä (pieni kursivoitu teksti) "lisätieto"-rivejä vaatimuksen
-  // tekstin alla — lihavoitu nimilappu erottaa ne toisistaan, koska kaksi
-  // muuten identtisen näköistä riviä peräkkäin olisi muuten mahdoton
-  // tunnistaa kummaksi kentäksi kumpikin kuuluu.
+  // Osallistu-lomakkeen elävä esikatselu: sama .req-card-merkkaus kuin
+  // reqRowHtml():ssa, ilman toimintoja ja lisääjä/muokkaaja-riviä.
+  // Päivittyy updateAddFormPreview():n kautta.
+  // Tarkennus/perustelu ja Hyväksyntäehto näytetään nimilapullisina
+  // lisätietoriveinä.
   function reqExtraLineHtml(label, value) {
     return value ? '<p class="req-card-note"><strong>' + escapeHtml(label) + ":</strong> " + escapeHtml(value) + "</p>" : "";
   }
 
-  // Hankinnan kohteet -pillirivi: yksi jaettu renderöijä kaikille viidelle
-  // .req-card-kuluttajalle (reqRowHtml, addFormPreviewRowHtml, pickerCardHtml,
-  // selectionCardHtml, collabShareCardHtml) — ks. CLAUDE.md "Ajan mukaan"
-  // -osion viereinen huomio siitä että nämä viisi kopioivat saman merkkauksen
-  // erikseen; tämä yksi funktio pitää pillirivin täsmälleen samana kaikissa.
+  // Hankinnan kohteet -pillirivi, yhteinen kaikille .req-card-korteille.
   function procurementTargetPillRowHtml(targets) {
     var list = (targets || []).filter(Boolean);
     if (list.length === 0) return "";
@@ -2435,13 +2284,9 @@
     );
   }
 
-  // Järjestysvalinta — pudotusvalikko "Hakuehdot ja suodattimet" -kortin
-  // otsikkorivillä (ks. yllä oleva kommentti .cat-head-controls:in
-  // kohdalla). Ei enää oma korttinsa: yksi <select>, aina käytettävissä
-  // riippumatta onko suodatinkortti auki vai kiinni. data-action="noop"
-  // estää klikkausta kuplimasta .cat-head:in omaan
-  // "toggle-lib-filters-section" -toimintoon (closest() pysähtyy tähän
-  // elementtiin ennen kuin ehtii esi-isään asti).
+  // Järjestysvalikko suodatinkortin otsikkorivillä. data-action="noop"
+  // estää klikkausta avaamasta/sulkemasta korttia (closest() pysähtyy
+  // tähän elementtiin).
   var LIB_SORT_OPTIONS = [
     { value: "", label: "Lisäysjärjestys" },
     { value: "createdAt-desc", label: "Uusin ensin" },
@@ -2464,10 +2309,8 @@
     );
   }
 
-  // "Hakuehdot ja suodattimet" -kortti Kirjasto-näkymälle — sama malli
-  // (välilehdet + on/off-painikkeet) kuin editorin vastaavassa kortissa,
-  // mutta omat tilamuuttujat (state.libCategoryFilter jne.) ja omat
-  // data-actionit, koska nämä ovat kaksi eri näkymää eri elinkaarilla.
+  // Kirjaston "Hakuehdot ja suodattimet" -kortti: välilehdet ja on/off-
+  // painikkeet, omat tilamuuttujat (state.lib*) ja data-actionit.
   var LIB_FILTER_TABS = [
     { key: "category", label: "Kategoria" },
     { key: "subcategory", label: "Alakategoria" },
@@ -2479,10 +2322,7 @@
     { key: "search", label: "Hakusana" }
   ];
 
-  // Yhdistää suodatindimension (välilehden avaimen) sekä sen state-
-  // taulukkoon että vaatimuksen omaan kenttänimeen — yksi paikka, josta
-  // molemmat luetaan, jotta uuden dimension lisääminen (kuten Lisääjä/
-  // Muokkaaja alunperin) vaatii vain yhden rivin tähän.
+  // Suodatinvälilehden avain → state-taulukko ja vaatimuksen kenttä.
   var LIB_FILTER_DIMS = {
     category: { stateKey: "libCategoryFilter", field: "category" },
     subcategory: { stateKey: "libSubcategoryFilter", field: "subcategory" },
@@ -2585,9 +2425,7 @@
     });
   }
 
-  // Alakategorian mukaan järjestettäessä "Ei alakategoriaa" (tyhjä arvo)
-  // pysyy aina viimeisenä, suunnasta riippumatta — se ei ole aakkosissa
-  // vertailukelpoinen arvo, vaan oma "muut"-ryhmänsä.
+  // Alakategorian mukaan järjestettäessä tyhjä arvo on aina viimeisenä.
   function compareSubcategory(a, b, desc) {
     if (a === "" && b === "") return 0;
     if (a === "") return 1;
@@ -2595,8 +2433,8 @@
     return desc ? sortFi(b, a) : sortFi(a, b);
   }
 
-  // Järjestää vaatimuslistauksen valitun kentän ja suunnan mukaan. Tyhjä
-  // valinta (oletus) säilyttää alkuperäisen (lisäys)järjestyksen.
+  // Järjestää vaatimukset valitun kentän ja suunnan mukaan. Tyhjä valinta
+  // säilyttää lisäysjärjestyksen.
   function sortRequirementsForDisplay(arr) {
     var mode = state.libSort;
     if (!mode) return arr;
@@ -2621,20 +2459,15 @@
     return sorted;
   }
 
-  // Onko haku tai jokin suodatin päällä? Kun on, kaikki näkyvät kategoriat
-  // (joissa jo per määritelmää on vähintään yksi osuma, ks. filteredRequirements())
-  // avataan oletuksena, jotta osumia ei tarvitse etsiä korttia kerrallaan.
+  // Onko haku tai jokin suodatin päällä?
   function libraryFilterActive() {
     return !!(state.libSearch.trim() || state.libCategoryFilter.length || state.libIndustryFilter.length ||
       state.libSubcategoryFilter.length || state.libCreatedByFilter.length || state.libUpdatedByFilter.length ||
       state.libProcurementTargetFilter.length || timeFilterActive(state.libTimeFilter));
   }
 
-  // Ei enää kategoria-/alakategoriaryhmittelyä Kirjaston listauksessa —
-  // vaatimuskortit näyttävät oman kategoriansa/alakategoriansa jo
-  // merkkeinä (ks. reqRowHtml()), joten erillinen otsikkohierarkia jäi
-  // tarpeettomaksi kaksinkertaisuudeksi. Yksi tasainen, hakuehtoja
-  // vastaava lista, järjestettynä valitun kentän mukaan.
+  // Kirjaston tuloslista: tasainen, valitun järjestyksen mukainen
+  // korttilista.
   function libraryListHtml() {
     var list = filteredRequirements();
     if (list.length === 0) {
@@ -2646,10 +2479,8 @@
     return '<ol class="req-cards">' + rows.map(reqRowHtml).join("") + "</ol>";
   }
 
-  // Vaatimuksen "tyyppi": pakollinen/valinnainen/pisteytettävä.
-  // `type` on ensisijainen kenttä; vanhoilla (ennen tätä lisättyä)
-  // vaatimuksilla, joilla ei ole `type`-kenttää, tyyppi johdetaan
-  // taannehtivasti boolean-kentästä `mandatory`.
+  // Vaatimuksen tyyppi: pakollinen/valinnainen/pisteytettävä. Jos
+  // type-kenttä puuttuu, tyyppi johdetaan mandatory-kentästä.
   var REQ_TYPES = [
     { value: "mandatory", label: "Pakollinen" },
     { value: "optional", label: "Valinnainen" },
@@ -2662,11 +2493,8 @@
     var found = REQ_TYPES.filter(function (t) { return t.value === type; })[0];
     return found ? found.label : "Valinnainen";
   }
-  // Osallistu-lomakkeen tyyppivalinta: on/off-painikkeina (sama
-  // .filter-buttons/.filter-toggle-btn-ulkoasu kuin muualla sovelluksessa,
-  // yksi kerrallaan aktiivinen) natiivien radiopainikkeiden sijaan. Arvo
-  // kulkeutuu lomakkeen FormData:aan piilotetun input[type=hidden]:in
-  // kautta.
+  // Tyyppivalinta on/off-painikkeina (yksi aktiivinen). Arvo välittyy
+  // FormData:an piilotetun kentän kautta.
   function reqTypeToggleButtonsHtml(hiddenName, selectedType) {
     return (
       '<div class="filter-buttons req-type-toggle">' +
@@ -2678,15 +2506,9 @@
     );
   }
 
-  // Vaatimuksen omat Hankinnan kohteet: monivalinta, rajattu vaatimuksen
-  // senhetkiseen Omistajaan (samat painikkeet kuin muuallakin, mutta
-  // useamman voi olla aktiivisena samanaikaisesti). Arvot kulkevat yhden
-  // piilotetun input[type=hidden]:in pilkulla eroteltuna merkkijonona —
-  // sama "yksi hidden + JS-hallittu .active" -periaate kuin
-  // reqTypeToggleButtonsHtml():llä, vain yleistettynä listaksi yhden arvon
-  // sijaan. Käytetään sekä Osallistun lisäyslomakkeella (#procurementTargetGroup)
-  // että Kirjaston/Osallistun muokkausrivillä (data-field="procurementTargets"),
-  // ks. click-käsittelijä "toggle-procurement-target".
+  // Vaatimuksen hankinnan kohteet: monivalinta vaatimuksen Omistajan
+  // kohteista. Valinnat tallennetaan piilotettuun kenttään pilkuilla
+  // eroteltuna (ks. "toggle-procurement-target").
   function procurementTargetToggleGroupHtml(industryName, selectedNames) {
     var selected = selectedNames || [];
     if (!industryName) {
@@ -2709,30 +2531,17 @@
     );
   }
 
-  // Taaksepäinyhteensopivuus: dokumentit, jotka luotiin ennen monivalintaa,
-  // kantavat vanhaa yksittäisarvoista `procurementTarget`-kenttää (ei
-  // `procurementTargets`-taulukkoa). Sama periaate kuin `reqType(r)`:llä
-  // vanhalle `mandatory`-kentälle — vanha arvo näkyy sellaisenaan kunnes
-  // dokumenttia muokataan, jolloin se tallentuu uuteen taulukkomuotoon;
-  // vanhaa kenttää ei koskaan kirjoiteta tyhjäksi eikä poisteta.
+  // Dokumentin hankinnan kohteet. Jos procurementTargets-taulukkoa ei ole,
+  // luetaan yksittäisarvoinen procurementTarget-kenttä.
   function listProcurementTargets(list) {
     if (list.procurementTargets) return list.procurementTargets;
     return list.procurementTarget ? [list.procurementTarget] : [];
   }
 
-  // Dokumentin oma (monivalintainen) Hankinnan kohde: valittavissa
-  // kaikkien Omistajien kohteista, koska dokumentilla itsellään ei ole
-  // omaa Omistaja-kenttää. Hakukombolaatikko (TODO-sparraus: kolme
-  // toteutusvaihtoehtoa esitettiin mockuppina — haku + Omistajan mukaan
-  // ryhmitelty painikelista, hakukombolaatikko kippeineen, Omistaja-valikko
-  // + haku rinnakkain — "Hakukombolaatikko" valittiin) korvasi aiemman
-  // yksittäisvalintaisen painikelistan, koska dokumentille voi nyt valita
-  // useamman kohteen kerrallaan ja kohteita voi kertyä niin paljon ettei
-  // tasainen painikelista enää riitä löytämään haluttua nopeasti.
-  // Kirjoittaminen suodattaa pudotusvalikon osumia (nimi + Omistaja
-  // jokaisen vaihtoehdon perässä); valinta lisää sen omaksi kipuksi
-  // valittujen riville ja tyhjentää haun. Jo valitut kohteet suodatetaan
-  // pois osumista, jottei samaa kohdetta voi valita kahdesti.
+  // Dokumentin hankinnan kohteet: hakukombo kaikkien Omistajien kohteista.
+  // Kirjoittaminen suodattaa osumat (nimi + Omistaja), valinta lisää
+  // kohteen valittujen riville ja tyhjentää haun. Jo valitut eivät näy
+  // osumissa.
   function procurementTargetChipsHtml(selectedNames) {
     if (!selectedNames || selectedNames.length === 0) {
       return '<span class="empty-hint">Ei valittuja hankinnan kohteita.</span>';
@@ -2769,11 +2578,8 @@
     );
   }
 
-  // Jokaiselle kategoria-/alakategorianimelle oma, muuttumaton värinsä
-  // vaatimuskorttien merkeissä (esim. "Ominaisuus" aina sama väri joka
-  // paikassa) — laskettu nimestä, ei ylläpidetty erikseen minnekään, joten
-  // uusi kategoria/alakategoria saa värinsä automaattisesti eikä mikään
-  // rekisteri voi mennä epäsynkkaan nimien kanssa.
+  // Kategoria- ja alakategoriamerkin väri lasketaan nimestä, joten sama
+  // nimi saa aina saman värin.
   var HUE_COUNT = 8;
   function hueIndexForName(name) {
     var hash = 0;
@@ -2786,12 +2592,8 @@
     return '<span class="req-chip" style="--chip-color:var(--hue-' + hueIndexForName(name) + ')">' + escapeHtml(name) + "</span>";
   }
 
-  // Yhteinen .req-card-runko (kaikki paitsi .req-card-top:in oma sisältö)
-  // — jaettu reqRowHtml():n (Tutustu, ei toimintoja) ja
-  // addWizardExistingCardHtml():n (Osallistun vaihe 1:n "Muokkaa
-  // olemassa olevaa" -haku, "Muokkaa tätä" + poisto) kesken, jottei
-  // vaatimuksen kenttälista (huomiot/hyväksyntäehto/merkit/lisääjä)
-  // eriydy kahdeksi ylläpidettäväksi kopioksi.
+  // Vaatimuskortin runko (.req-card-top:n alapuolinen osa), yhteinen
+  // reqRowHtml():lle ja addWizardExistingCardHtml():lle.
   function reqCardBodyPartsHtml(r) {
     var attributionParts = [];
     if (r.createdBy) attributionParts.push("Lisäsi " + escapeHtml(r.createdBy) + " " + fmtDate(r.createdAt));
@@ -2824,10 +2626,8 @@
     );
   }
 
-  // Osallistun vaihe 1:n ("Uusi vai muokkaus?") hakutulokset — sama
-  // .req-card-runko kuin reqRowHtml():lla, mutta muokkaus-/poistoikonien
-  // sijaan "Muokkaa tätä" lataa vaatimuksen prosessin loppuosaan
-  // (ks. "add-wizard-pick-existing") ja poisto pysyy omana pikatoimintonaan.
+  // Osallistun vaiheen 1 hakutulos: "Muokkaa tätä" lataa vaatimuksen
+  // lomakkeelle (ks. "add-wizard-pick-existing"), lisäksi poisto.
   function addWizardExistingCardHtml(r) {
     var type = reqType(r);
     return (
@@ -2849,8 +2649,7 @@
     if (el) el.innerHTML = libraryListHtml();
   }
 
-  // ---------- Näkymä: Hallinta (Kategoriat/Alakategoriat/Omistajat/
-  // Yritykset/Fraasit koottuna yhden välilehtipalkin alle) ----------
+  // ---------- Näkymä: Hallinta (taustatiedot välilehtinä) ----------
   var ADMIN_TABS = [
     { view: "categories", label: "Kategoriat", helpAnchor: "ohje-kategoriat" },
     { view: "subcategories", label: "Alakategoriat", helpAnchor: "ohje-alakategoriat" },
@@ -2860,10 +2659,7 @@
     { view: "phrases", label: "Fraasit", helpAnchor: "ohje-fraasit" }
   ];
 
-  // Alustuksen ("Alusta oletustaustatiedoilla") tulosraportti — pysyy
-  // näkyvissä kunnes käyttäjä sulkee sen itse (ei automaattista
-  // katoamista), koska ohitettujen (jo olemassa olevien) rivien listaus
-  // saattaa olla lukemisen arvoinen tarkastelu, ei vain hetkellinen ilmoitus.
+  // Seed-alustuksen tulosraportti, näkyvissä kunnes käyttäjä sulkee sen.
   var SEED_RESULT_LABELS = [
     { key: "categories", label: "Kategoriat" },
     { key: "subcategories", label: "Alakategoriat" },
@@ -3099,12 +2895,7 @@
   }
 
   // ---------- Näkymä: Hankinnan kohteet ----------
-  // Ainoa taustatietokokoelma joka viittaa toiseen (Omistajaan) — siksi
-  // näkymä ryhmittelee kohteet Omistajan mukaan, oma lisäysrivi kunkin
-  // Omistajan alla, sen sijaan että olisi yksi tasainen lista kuten
-  // Kategoriat/Alakategoriat/Omistajat (TODO-sparraus: "miten hankinnan
-  // kohteita lisätään Omistajalle" -kysymys ratkaistiin juuri tällä
-  // ryhmittelyllä, ks. CLAUDE.md).
+  // Kohteet ryhmiteltynä Omistajan mukaan, kullakin oma lisäysrivi.
   function tplProcurementTargets() {
     if (!state.procurementTargetsLoaded || !state.industriesLoaded) return '<p style="color:var(--muted)">Ladataan…</p>';
     return (
@@ -3395,9 +3186,7 @@
     if (el) el.textContent = phraseFilterActive() ? "käytössä" : "ei käytössä";
   }
 
-  // Järjestysvalinta "Hakuehdot ja suodattimet" -kortin otsikkorivillä —
-  // ks. Kirjaston vastaava kommentti (.cat-head-controls) tarkemmasta
-  // perustelusta ja data-action="noop":in tarkoituksesta.
+  // Järjestysvalikko suodatinkortin otsikkorivillä (ks. libSortSelectHtml()).
   var PHRASE_SORT_OPTIONS = [
     { value: "", label: "Teksti A→Ö" },
     { value: "text-desc", label: "Teksti Ö→A" },
@@ -3429,10 +3218,8 @@
     });
   }
 
-  // Oletus (tyhjä valinta) vastaa aiempaa, aina päällä ollutta käytöstä:
-  // teksti A→Ö. Kategoria/alakategoria-järjestys käyttää tekstiä
-  // toissijaisena järjestysperusteena, jotta saman kategorian sisällä
-  // rivit eivät hyppele satunnaisesti.
+  // Oletus on teksti A→Ö. Kategoria- ja alakategoriajärjestyksessä
+  // teksti on toissijainen järjestysperuste.
   function sortPhrasesForDisplay(arr) {
     var mode = state.phraseSort;
     var sorted = arr.slice();
@@ -3500,7 +3287,7 @@
     if (el) el.innerHTML = phrasesListHtml();
   }
 
-  // ---------- Näkymä: Listat ----------
+  // ---------- Näkymä: Dokumentit ----------
   function tplLists() {
     if (!state.listsLoaded) return '<p style="color:var(--muted)">Ladataan…</p>';
     var selCount = state.selectedListIds.length;
@@ -3588,9 +3375,7 @@
     if (el) el.textContent = listsFilterActive() ? "käytössä" : "ei käytössä";
   }
 
-  // Järjestysvalinta "Hakuehdot ja suodattimet" -kortin otsikkorivillä —
-  // ks. Kirjaston vastaava kommentti (.cat-head-controls) tarkemmasta
-  // perustelusta ja data-action="noop":in tarkoituksesta.
+  // Järjestysvalikko suodatinkortin otsikkorivillä (ks. libSortSelectHtml()).
   var LISTS_SORT_OPTIONS = [
     { value: "", label: "Lisäysjärjestys" },
     { value: "createdAt-desc", label: "Uusin ensin" },
@@ -3678,10 +3463,7 @@
     );
   }
 
-  // Ei enää yritysryhmittelyä — yrityksen nimi näkyy nyt suoraan
-  // jokaisella listakortilla (ks. listCardHtml()), samasta syystä kuin
-  // Kirjasto-listaus muuttui tasaiseksi: erillinen otsikkohierarkia oli
-  // tarpeeton kaksinkertaisuus kortilla jo näkyvän tiedon kanssa.
+  // Dokumenttilistaus tasaisena korttilistana.
   function listsListHtml() {
     if (state.lists.length === 0) {
       return '<div class="empty-state">Dokumentteja ei ole vielä luotu. Aloita painamalla “Uusi dokumentti”.</div>';
@@ -3740,20 +3522,9 @@
     );
   }
 
-  // Editorin ainoa jäljellä oleva iso, itsenäisesti avattava/suljettava
-  // osio ("Hakuehdot ja suodattimet") — sama kortti/kaavio kuin Kirjasto-
-  // näkymän kategoriakorteilla (`.cat-card`/`.cat-head`/`.cat-body`,
-  // `editor-section` vain lisää hieman tilaa/kokoa koska tämä on iso
-  // pääosio eikä pieni toistuva rivi), mutta oma tila
-  // (`state.editorSectionOpen`) ja oma oletuslogiikka: toisin kuin
-  // kategoriakortit (jotka avautuvat oletuksena kiinni ja avautuvat
-  // suodatuksen ollessa päällä), tämä osio on aina auki oletuksena — se on
-  // editorin ainoa tämän tyyppinen pääsisältö, ei pitkä toistuva lista
-  // jota kannattaisi tiivistää oletuksena. Nollautuu takaisin auki (kunnes
-  // käyttäjä itse sulkee) aina kun eri lista avataan. (Kaksi muuta osiota,
-  // "Valittavat vaatimukset" ja "Valitut vaatimukset", korvattiin
-  // Valittavat/Valitut-välilehdillä — ks. "Editor layout: Hakuehdot card +
-  // Valittavat/Valitut tabs" CLAUDE.md:ssä.)
+  // Editorin avattava "Hakuehdot ja suodattimet" -osio. Oletuksena auki
+  // (state.editorSectionOpen), palautuu auki-tilaan kun toinen dokumentti
+  // avataan.
   function editorSectionHtml(key, title, bodyHtml, badgeHtml) {
     var recorded = state.editorSectionOpen[key];
     var isOpen = (recorded === null || recorded === undefined) ? true : recorded;
@@ -3768,8 +3539,8 @@
     );
   }
 
-  // Onko haku tai jokin kolmesta suodattimesta päällä? Ohjaa "Hakuehdot ja
-  // suodattimet" -kortin otsikon "käytössä"/"ei käytössä" -merkintää.
+  // Onko haku tai jokin suodatin päällä? Ohjaa kortin "käytössä"/"ei
+  // käytössä" -merkintää.
   function editorFiltersActive() {
     return !!(state.editorSearch.trim() || state.editorCategoryFilter.length || state.editorSubcategoryFilter.length || state.editorIndustryFilter.length || state.editorProcurementTargetFilter.length || timeFilterActive(state.editorTimeFilter));
   }
@@ -3779,13 +3550,8 @@
     if (el) el.textContent = editorFiltersActive() ? "käytössä" : "ei käytössä";
   }
 
-  // Hakuehdot-kortin alla kaksi välilehteä, "Valittavat" ja "Valitut" —
-  // korvaa aiemman kaksivaiheisen (Etsi ja valitse / Valinnan tulos)
-  // kolmiosaisen pinon (TODO-kohta: kolme toteutusvaihtoehtoa esitettiin
-  // mockuppina, "Selkeä kaksoisvälilehti" valittiin). Vain aktiivisen
-  // välilehden sisältö renderöidään (state.editorTab), sama "yksi
-  // kerrallaan näkyvissä" -periaate kuin Hakuehdot-kortin omilla sisäisillä
-  // välilehdillä.
+  // Hakuehdot-kortin alla välilehdet "Valittavat" ja "Valitut"; vain
+  // aktiivinen (state.editorTab) renderöidään.
   function editorSectionsHtml(list) {
     return (
       editorSectionHtml(
@@ -3805,11 +3571,8 @@
     if (el && list) el.innerHTML = editorSectionsHtml(list);
   }
 
-  // Välilehtien otsikkorivi ja aktiivisen välilehden sisältö erikseen
-  // uudelleenpiirrettävinä (editorTabsBar/editorTabPanels), jotta pelkkä
-  // suodattimen/haun muutos tai valinnan lisäys/poisto ei tarvitse koko
-  // #editorSections-alueen (mukaan lukien Hakuehdot-kortin auki/kiinni-tila)
-  // uudelleenrakentamista.
+  // Päivittää välilehtirivin ja aktiivisen välilehden sisällön ilman koko
+  // #editorSections-alueen uudelleenrakennusta.
   function editorTabsHtml(list) {
     var tab = state.editorTab || "available";
     var availableCount = editorAvailablePool(list).length;
@@ -3835,10 +3598,8 @@
     if (panels) panels.innerHTML = editorTabPanelHtml(list);
   }
 
-  // "Hakuehdot ja suodattimet" -osion sisältö: yksi välilehti kutakin
-  // ulottuvuutta kohti (Kategoria/Alakategoria/Omistaja/Hakusana). Vain
-  // aktiivisen välilehden sisältö renderöidään — ei siis enää neljä asiaa
-  // näkyvissä yhtä aikaa, kuten aiemmassa vierekkäin-asettelussa.
+  // "Hakuehdot ja suodattimet" -osion sisältö: välilehti per ulottuvuus,
+  // vain aktiivinen renderöidään.
   var EDITOR_FILTER_TABS = [
     { key: "category", label: "Kategoria" },
     { key: "subcategory", label: "Alakategoria" },
@@ -3894,13 +3655,8 @@
     if (el) el.innerHTML = editorSearchSectionBodyHtml();
   }
 
-  // Suodattimen arvot on/off-painikkeina (ei enää valintaruutuina),
-  // aakkosjärjestyksessä — managedCategoryNames()/managedSubcategoryNames()/
-  // managedIndustryNames() palauttavat jo sortFi()-järjestyksen. Jaettu
-  // editorin ja Kirjaston "Hakuehdot ja suodattimet" -korttien kesken;
-  // toggleAction/clearAction kertovat kumman näkymän data-action-nimiä
-  // käytetään, koska tilat (state.editorCategoryFilter vs.
-  // state.libCategoryFilter) ja niiden käsittelijät ovat omansa kummallakin.
+  // Suodattimen arvot on/off-painikkeina. toggleAction/clearAction
+  // määräävät näkymäkohtaiset data-action-nimet.
   function filterButtonsHtml(dim, names, selected, toggleAction, clearAction) {
     if (names.length === 0) {
       return '<p class="empty-state" style="margin:0">Ei vaihtoehtoja.</p>';
@@ -3922,27 +3678,16 @@
     );
   }
 
-  // Osuma jos vaatimuksen procurementTargets-taulukko sisältää JONKIN
-  // valituista kohteista (OR valinnan sisällä) — sama periaate kuin muillakin
-  // monivalinta-ulottuvuuksilla, vain sovellettuna vaatimuksen omaan
-  // taulukkoon yhden arvon sijaan.
+  // Osuma, jos vaatimuksen procurementTargets sisältää jonkin valituista.
   function matchesProcurementTargetFilter(r, selected) {
     if (!selected.length) return true;
     var targets = r.procurementTargets || [];
     return selected.some(function (s) { return targets.indexOf(s) !== -1; });
   }
 
-  // "Hankinnan kohde" -suodatinpaneeli, jaettu kaikkien neljän
-  // suodatuskortin kesken (TODO-sparraus: kolme vaihtoehtoa esitettiin
-  // mockuppina — tasainen lista, Omistajan mukaan ryhmitelty, Omistaja-
-  // välilehteä seuraava kontekstisidonnainen — ja "ryhmitelty" valittiin).
-  // Ryhmittely on vain visuaalinen: valinta itsessään on yksi tasainen
-  // taulukko (state[stateKey]), joka voi sisältää arvoja monelta eri
-  // Omistajalta yhtä aikaa (OR keskenään, kuten filterButtonsHtml():lläkin),
-  // joten toggle-/clear-käsittelijät ovat täsmälleen samat, joita
-  // filterButtonsHtml() jo käyttää — vain itse painikkeiden ryhmittely
-  // eroaa, minkä vuoksi tätä ei voitu toteuttaa filterButtonsHtml():n
-  // names-parametrina sellaisenaan.
+  // "Hankinnan kohde" -suodatinpaneeli, painikkeet ryhmiteltynä Omistajan
+  // mukaan. Valinta on yksi tasainen taulukko (state[stateKey]), joten
+  // käsittelijät ovat samat kuin filterButtonsHtml():llä.
   function procurementTargetFilterPanelHtml(dim, selected, toggleAction, clearAction) {
     var industriesWithTargets = state.industries.slice().sort(function (a, b) { return sortFi(a.name, b.name); }).filter(function (ind) {
       return procurementTargetsForIndustry(ind.name).length > 0;
@@ -3969,18 +3714,10 @@
       : "");
   }
 
-  // "Ajan mukaan" -suodatinulottuvuus, jaettu kaikkien neljän vaatimuksia
-  // suodattavan "Hakuehdot ja suodattimet" -kortin kesken (Tutustu, editorin
-  // Valittavat, Osallistun Muokkaa tai poista, Tee yhteistyötä) — TODO-kohta
-  // pyysi kolme toteutusvaihtoehtoa mockuppina, "Pikavalinnat + tarkennus"
-  // valittiin. Toisin kuin muut ulottuvuudet (Kategoria/Omistaja/...), tämä
-  // yhdistää kolme erillistä alaryhmää (vuosi/kuukausi/liukuva aikaväli),
-  // jotka toimivat ristiin (AND ryhmien välillä, OR ryhmän sisällä) — siksi
-  // oma tilaolio ({years, months, ranges, advancedOpen}) yhden taulukon
-  // sijaan, mutta itse render-/täsmäytysfunktiot ovat jaettuja kaikkien
-  // neljän näkymän kesken, koska logiikka on kirjaimellisesti identtinen
-  // (ks. TIME_FILTER_SCOPES scope-hakutaulukosta, joka kertoo kumman
-  // näkymän tilaa/uudelleenpiirtoa mikäkin klikkaus koskee).
+  // "Ajan mukaan" -suodatin, yhteinen kaikille vaatimuksia suodattaville
+  // korteille. Tila on olio {years, months, ranges, advancedOpen};
+  // näkymäkohtainen tila ja uudelleenpiirto haetaan TIME_FILTER_SCOPES-
+  // taulukosta.
   var TIME_FILTER_MONTHS = ["Tammi", "Helmi", "Maalis", "Huhti", "Touko", "Kesä", "Heinä", "Elo", "Syys", "Loka", "Marras", "Joulu"];
   var TIME_FILTER_RANGES = [
     { key: "7", label: "7 päivän sisällä", days: 7 },
@@ -4004,10 +3741,8 @@
     return Math.round((Date.now() - date.getTime()) / 86400000);
   }
 
-  // Osuma jos JOKIN vaatimuksen luonti- tai muokkausajankohdista täsmää —
-  // "jolloin vaatimus on luotu tai päivitetty" (TODO-kohdan oma sanamuoto).
-  // Ryhmien (vuosi/kuukausi/liukuva) välillä AND, ryhmän sisällä OR — sama
-  // kaava kuin Kategoria/Alakategoria/Omistaja-suodattimilla.
+  // Osuma, jos vaatimuksen luonti- tai muokkausaika täsmää. Ryhmien
+  // (vuosi/kuukausi/aikaväli) välillä AND, ryhmän sisällä OR.
   function matchesTimeFilter(r, sel) {
     if (!timeFilterActive(sel)) return true;
     var dates = requirementDates(r);
@@ -4021,10 +3756,7 @@
     return yearOk && monthOk && rangeOk;
   }
 
-  // Vuodet lasketaan aina suoraan koko vaatimuskirjastosta (ei sen
-  // hetkisestä, jo suodatetusta poolista) — sama periaate kuin Lisääjä/
-  // Muokkaaja-välilehdillä (distinctFieldNames()): vaihtoehdot eivät saa
-  // kadota siksi että joku muu suodatin on jo rajannut näkymää.
+  // Vuodet lasketaan koko vaatimuskirjastosta, ei suodatetusta joukosta.
   function distinctRequirementYears() {
     var years = {};
     state.requirements.forEach(function (r) {
@@ -4037,13 +3769,9 @@
     return sel ? sel.years.length + sel.months.length + sel.ranges.length : 0;
   }
 
-  // "Pikavalinnat + tarkennus" -paneeli: ylin rivi on yhden klikkauksen
-  // valmiit yhdistelmät (korvaavat koko valinnan, eivät lisää siihen),
-  // "Näytä tarkemmat valinnat" avaa alle kaikki kolme ryhmää erikseen
-  // ristiin yhdisteltäväksi (samat .filter-buttons/.filter-toggle-btn kuin
-  // muillakin ulottuvuuksilla). scope tunnistaa kumman näkymän
-  // data-scope-attribuutin klikkauskäsittelijä tarvitsee (ks.
-  // TIME_FILTER_SCOPES).
+  // "Ajan mukaan" -paneeli: pikavalinnat korvaavat koko valinnan,
+  // "Näytä tarkemmat valinnat" avaa vuosi-/kuukausi-/aikaväliryhmät.
+  // scope viittaa TIME_FILTER_SCOPES-avaimeen.
   function timeFilterPanelHtml(scope, sel) {
     var now = new Date();
     var quickChips = [
@@ -4091,9 +3819,7 @@
     );
   }
 
-  // Kirjaston kanssa yhteinen suodatuspooli — nyt myös "Valittavat"-
-  // välilehden pohja; listalle jo lisätyt suodatetaan siitä pois erikseen
-  // (ks. editorAvailablePool).
+  // Editorin suodatettu vaatimusjoukko (ks. editorAvailablePool).
   function editorPickerPool() {
     var q = state.editorSearch.trim().toLowerCase();
     var catFilter = state.editorCategoryFilter;
@@ -4109,11 +3835,8 @@
     });
   }
 
-  // "Valittavat"-välilehden joukko: suodatuspoolista vielä listalle
-  // lisäämättömät, kategorian ja tekstin mukaan aakkostettuna (sama
-  // aakkostusperiaate kuin aiemmalla kategoriaryhmittelyllä oli, vaikka
-  // otsikoita ei enää näytetä erikseen — ks. "Kirjasto-listaus on nyt
-  // tasainen kortistolista" samasta ratkaisusta Kirjasto-näkymässä).
+  // Valittavat: suodatetut vaatimukset, joita ei ole vielä dokumentilla,
+  // kategorian ja tekstin mukaan järjestettynä.
   function editorAvailablePool(list) {
     var itemIds = (list && list.itemIds) || [];
     return editorPickerPool().filter(function (r) {
@@ -4124,9 +3847,7 @@
     });
   }
 
-  // "Valittavat"-kortti: sama .req-card-ulkoasu kuin Kirjastossa
-  // (reqRowHtml()), mutta muokkaus-/poistokuvakkeiden sijaan yksi
-  // "+ Lisää listalle" -pilleri-painike.
+  // Valittavat-kortti: "+ Lisää dokumentille" -painike.
   function pickerCardHtml(r) {
     var type = reqType(r);
     var chips = [];
@@ -4160,15 +3881,9 @@
     return '<ol class="req-cards">' + pool.map(pickerCardHtml).join("") + "</ol>";
   }
 
-  // Listakohtaisen tarkennus/perustelu- tai hyväksyntäehto-arvon
-  // näyttöarvo: jos lista on jo saanut oman, mahdollisesti muokatun arvon
-  // (kartassa on avain, myös tyhjälle merkkijonolle), se voittaa; muuten
-  // näytetään vaatimuksen oma kirjastotason arvo lähtökohtana (esim. jo
-  // olemassa olevat listat, jotka on koottu ennen kumpaakaan ominaisuutta).
-  // Tämä sama kaava on käytössä sekä renderöinnissä että
-  // sokkotarkistuksessa (blur-käsittelijä), jottei koskematon kenttä
-  // aiheuta turhaa tallennusta. Kaksi ohutta kääre-funktiota (note/
-  // acceptanceCondition) pitävät kutsupaikat lyhyinä ja nimet ennallaan.
+  // Dokumenttikohtainen tarkennus/perustelu- tai hyväksyntäehtoarvo: jos
+  // kartassa on avain (myös tyhjä merkkijono), se voittaa; muuten käytetään
+  // vaatimuksen omaa arvoa.
   function listItemFieldValue(list, r, mapField, reqField) {
     var map = list[mapField] || {};
     return Object.prototype.hasOwnProperty.call(map, r.id) ? map[r.id] : (r[reqField] || "");
@@ -4182,12 +3897,8 @@
     return listItemFieldValue(list, r, "itemAcceptanceConditions", "acceptanceCondition");
   }
 
-  // "Valitut"-välilehti: sama .req-card-ulkoasu, numeroitu, ↑/↓-järjestys
-  // ja "✕ Poista listalta" -painike korvaavat aiemman .selection-row-rivin.
-  // Listakohtaiset tarkennus/perustelu- ja hyväksyntäehto-tekstialueet (ks.
-  // "Requirement `note` and `acceptanceCondition`, each with a per-list
-  // override map" CLAUDE.md:ssä) pysyvät
-  // ennallaan kortin alaosassa.
+  // Valitut-välilehti: numeroidut kortit, ↑/↓-järjestys, poisto ja
+  // dokumenttikohtaiset tarkennus/perustelu- ja hyväksyntäehtokentät.
   function selectionCardHtml(r, list, i, total) {
     var id = r.id;
     var type = reqType(r);
@@ -4229,12 +3940,8 @@
     return '<ol class="req-cards">' + rows + "</ol>";
   }
 
-  // Vaatimuksen lisäys listalle "Valittavat"-välilehden "+ Lisää listalle"
-  // -painikkeesta — sama logiikka kuin aiemmalla toggle-pick-valintaruudun
-  // "checked"-haaralla: kopioi vaatimuksen oman tarkennus/perustelu- ja
-  // hyväksyntäehto-arvon listakohtaiseksi lähtöarvoksi lisäyshetkellä (ks.
-  // "Requirement `note` and `acceptanceCondition`, each with a per-list
-  // override map" CLAUDE.md:ssä).
+  // Lisää vaatimuksen dokumentille ja kopioi sen tarkennus/perustelu- ja
+  // hyväksyntäehtoarvot dokumenttikohtaisiksi lähtöarvoiksi.
   function addRequirementToList(id) {
     var list = currentList();
     if (!list) return;
@@ -4262,24 +3969,11 @@
   }
 
   // ---------- Näkymä: Tulostus ----------
-  // Yhden listan tulostettava dokumentti: otsikko, muistiinpanot,
-  // yhteystiedot ja vaatimukset kaksitasoisena kategoria→alakategoria-
-  // hierarkiana (sama periaate kuin Kirjasto-näkymässä). Numerointi (n)
-  // alkaa aina yhdestä per lista, myös silloin kun useampi lista
-  // tulostetaan peräkkäin samaan tulostuskertaan.
-  // Tulostustyypin ryhmittelyjärjestys (TODO-sparraus: "ryhmitellään ensin
-  // sen mukaan ovatko ne pakollisia, pisteytettäviä tai valinnaisia" — tämä
-  // on käyttäjän oma, hyväksytty järjestys hyväksytystä mockupista, EI sama
-  // järjestys kuin REQ_TYPES:n oma (Pakollinen/Valinnainen/Pisteytettävä) —
-  // älä yhdistä näitä kahta samaksi vahingossa.
+  // Tyyppiosioiden järjestys tulosteessa (eri kuin REQ_TYPES:n järjestys).
   var PRINT_TYPE_ORDER = ["mandatory", "scored", "optional"];
 
-  // Dokumentin tulostus/esikatselu (TODO-sparraus, kolme kierrosta: ensin
-  // koko dokumentin rakenne kolmena vaihtoehtona — "Kansilehtityylinen
-  // perustietolaatikko" valittiin — sitten vaatimuslistauksen kolme
-  // vaihtoehtoa — "Korttilistaus" valittiin — sitten kortin oma 3-lohkoinen
-  // pystyrakenne pyydettiin erikseen ja hyväksyttiin sellaisenaan). Ks.
-  // "Print document redesign" CLAUDE.md:ssä täydestä taustasta.
+  // Dokumentin tuloste: perustietolaatikko ja vaatimuskortit ryhmiteltynä
+  // tyypin ja kategorian mukaan. Numerointi alkaa yhdestä per dokumentti.
   function printDocHtml(list) {
     var itemIds = list.itemIds || [];
     var items = itemIds.map(function (id) { return state.requirements.find(function (r) { return r.id === id; }); }).filter(Boolean);
@@ -4289,13 +3983,8 @@
       return value ? '<p class="print-note"><strong>' + escapeHtml(label) + ":</strong> " + escapeHtml(value) + "</p>" : "";
     }
 
-    // Kortti: kolme pystysuunnassa pinottua lohkoa — ylin (numero,
-    // alakategoria, teksti), keskimmäinen (tarkennus/perustelu ja
-    // hyväksyntäehto, vain jos jompikumpi on asetettu) ja alin (vaatimuksen
-    // omat hankinnan kohteet, vain jos niitä on). Alakategoria näkyy nyt
-    // kortin omana merkkinään, ei enää erillisenä ryhmäotsikkona listan
-    // yllä — sama siirtymä kuin Kirjaston kortit tekivät aikanaan (ks.
-    // "Kirjasto requirement card chips" CLAUDE.md:ssä).
+    // Kortti: kolme lohkoa — numero, alakategoria ja teksti; tarkennus/
+    // perustelu ja hyväksyntäehto (jos asetettu); hankinnan kohteet (jos on).
     function printCardHtml(r) {
       n++;
       var note = listItemNoteValue(list, r);
@@ -4383,13 +4072,11 @@
     var ids = (state.printListIds && state.printListIds.length) ? state.printListIds : (state.currentListId ? [state.currentListId] : []);
     var lists = ids.map(function (id) { return state.lists.find(function (l) { return l.id === id; }); }).filter(Boolean);
     if (lists.length === 0) return '<div class="empty-state">Dokumenttia ei löytynyt.</div>';
-    // Useampi lista tulostetaan aina listan nimen mukaisessa aakkosjärjestyksessä.
+    // Useampi dokumentti tulostetaan nimen mukaisessa aakkosjärjestyksessä.
     lists.sort(function (a, b) { return sortFi(a.name || "", b.name || ""); });
 
-    // Ryhmitelty omaan div:iin, jotta .print-toolbar näkee aina vain kaksi
-    // suoraa lasta (tämä ja Tulosta-painike) — muuten justify-content:
-    // space-between jakaisi tilan väärin useamman painikkeen kesken
-    // (sama vika kuin .list-card:ssa, ks. CLAUDE.md).
+    // Oma div, jotta .print-toolbar:lla on aina kaksi lasta
+    // (space-between).
     var backHtml = lists.length === 1
       ? '<button type="button" class="btn" data-action="back-to-editor" data-id="' + lists[0].id + '">← Muokkaa dokumenttia</button>' +
         '<button type="button" class="btn" data-action="back-to-lists">← Kaikki dokumentit</button>'
@@ -4405,10 +4092,8 @@
   }
 
   // ---------- Näkymä: Ohje ----------
-  // anchorId on valinnainen — Hallinta-näkymän "Ohje: X →" -painikkeet
-  // hyppäävät suoraan tähän kohtaan sivulla (ks. "go-to-help"). number on
-  // helpSectionNumbers()-funktion laskema "N" tai "N.M" -numerointi (ks.
-  // HELP_SECTIONS-taulukon jälkeinen numerointilaskenta).
+  // number on "N" tai "N.M"; anchorId on ankkuri, johon "go-to-help" ja
+  // sisällysvalikko hyppäävät.
   function helpSectionHtml(number, title, blocks, anchorId) {
     return (
       '<section class="print-group"' + (anchorId ? ' id="' + anchorId + '"' : "") + '>' +
@@ -4425,8 +4110,7 @@
     );
   }
 
-  // HELP_SECTIONS ajaa sekä sisällysluetteloa että itse osioita, jotta
-  // otsikko/ankkuri ei voi päätyä epäsynkkaan näiden kahden välillä.
+  // HELP_SECTIONS tuottaa sekä sisällysluettelon että osiot.
   var HELP_SECTIONS = [
     { title: "Hyvistä käytännöistä", anchor: "ohje-hyvista-kaytannoista", blocks: [
         "Kun tietokanta on tyhjä, lisää perustiedot tässä järjestyksessä. Voit myös painaa Hallinta-näkymän yläreunan “Alusta oletustaustatiedoilla” -painiketta. Se tekee neljä ensimmäistä vaihetta valmiiksi, ja voit aloittaa suoraan vaiheesta 5.",
@@ -4530,14 +4214,8 @@
       ] }
   ];
 
-  // Kaksitasoinen numerointi HELP_SECTIONS-järjestyksen mukaan: pääotsikot
-  // (ei level-kenttää) saavat juoksevan "N"-numeron ja nollaavat alaotsikko-
-  // laskurin; level: 2 -osiot (Hallinta-näkymän viisi taustatieto-välilehteä)
-  // saavat edeltävän pääotsikon numeron perään ".M" (M nollautuu jokaisen
-  // uuden pääotsikon kohdalla). Lasketaan kerran täältä suoraan
-  // HELP_SECTIONS-olioihin, jotta sekä sisällys-pudotusvalikko että itse
-  // otsikot (helpSectionHtml()) lukevat aina samaa, taatusti synkronissa
-  // olevaa numeroa sen sijaan että kumpikin laskisi sen erikseen.
+  // Kaksitasoinen numerointi HELP_SECTIONS-järjestyksen mukaan:
+  // pääosiot "N", level: 2 -osiot "N.M".
   (function () {
     var topNum = 0;
     var subNum = 0;
@@ -4579,13 +4257,10 @@
   }
 
   // ---------- Näkymä: Tee yhteistyötä (vaatimusten vienti/tuonti
-  // koneluettavana JSON-tiedostona toiselle vaatimuskirjaston
-  // käyttäjälle/käyttäjältä) ----------
+  // JSON-tiedostona) ----------
 
-  // Vientiin valittavien vaatimusten poimintajoukko — sama suodatinlogiikka
-  // kuin editorin/kirjaston vastaavissa, mutta omat tilamuuttujat
-  // (state.collab*), koska tämä on oma, riippumaton näkymä eikä sidottu
-  // mihinkään yksittäiseen listaan.
+  // Vientiin valittavien vaatimusten joukko, omat suodatintilat
+  // (state.collab*).
   function collabPool() {
     var q = state.collabSearch.trim().toLowerCase();
     var catFilter = state.collabCategoryFilter;
@@ -4630,13 +4305,7 @@
     if (countEl) countEl.textContent = collabPool().length;
   }
 
-  // Yksi haku­taulukko per näkymä kertoo mistä tilaoliosta "Ajan mukaan"
-  // -klikkaukset lukevat/kirjoittavat ja mitkä kohdennetut uudelleen-
-  // piirrot niiden jälkeen tarvitaan — sama periaate kuin LIB_FILTER_DIMS
-  // välttää nelinkertaisen if/else-haaroittelun, koska tämä sama
-  // ominaisuus toistuu identtisenä neljässä eri näkymässä (ks.
-  // timeFilterPanelHtml() yllä, jonka scope-parametri vastaa näitä
-  // avaimia).
+  // "Ajan mukaan" -suodattimen näkymäkohtainen tila ja uudelleenpiirrot.
   var TIME_FILTER_SCOPES = {
     lib: {
       stateKey: "libTimeFilter",
@@ -4717,20 +4386,11 @@
     if (el) el.textContent = collabFiltersActive() ? "käytössä" : "ei käytössä";
   }
 
-  // Valittavat vaatimukset esitetään itsenäisinä kortteina suoraan, ei
-  // enää oman avattavan/suljettavan "Valittavat vaatimukset" -kortin
-  // sisällä — sama "otsikko + suora lista" -malli kuin Kirjasto-näkymän
-  // "Haun tulokset (N)" (ks. tplLibrary()); riippumaton valintajoukko
-  // (state.collabSelectedIds) — ei sidottu mihinkään listaan eikä
-  // tallenneta palvelimelle, koska tämä on pelkästään vientiä varten
-  // kerätty, hetkellinen valinta.
+  // Valittavat vaatimukset: otsikko ja korttilista. Valinta
+  // (state.collabSelectedIds) on vain selaimessa.
 
-  // Litteä, lajittelematon kortisto samaan tapaan kuin Kirjasto-näkymän
-  // libraryListHtml() (ks. "Kirjasto listing is now a flat, sorted card
-  // list" CLAUDE.md:ssä) — ei kategoria/alakategoria-ryhmittelyä. Jokaisen
-  // kortin oma on/off-painike korvaa poiminnan checkboxin: "Jaetaan"
-  // (vihreä) / "Ei jaeta" (punainen), riippuen onko vaatimuksen id
-  // state.collabSelectedIds-taulukossa.
+  // Tasainen korttilista, jokaisella kortilla "Jaetaan"/"Ei jaeta"
+  // -painike.
   function collabPickerListHtml() {
     var pool = collabPool();
     if (pool.length === 0) {
@@ -4762,14 +4422,7 @@
     );
   }
 
-  // "Toiminnot"-rivi: yksi kortti hakuehtojen ja valittavien vaatimusten
-  // listan välissä, jossa asuvat sekä vienti ("Jaa valitut", määrä
-  // suoraan painikkeen tekstissä sulkeissa) että tuonti ("Vastaanota
-  // tietoja" — sama piilotettu <input type="file"> + <label>-tekniikka
-  // kuin ennenkin, vain sijainti ja nimi muuttuivat). "Jaa valitut" on
-  // täytetty ensisijaispainike, "Vastaanota tietoja" ääriviivallinen
-  // (.btn.ghost-primary) — kaksi tasavertaista mutta suunnaltaan
-  // vastakkaista toimintoa samalla rivillä.
+  // "Toiminnot"-rivi: "Jaa valitut (N)" ja "Vastaanota tietoja".
   function collabActionsBarHtml() {
     var n = state.collabSelectedIds.length;
     var fileDisabled = isReadOnly() || isNoAdmin();
@@ -4790,9 +4443,7 @@
     if (el) el.outerHTML = collabActionsBarHtml();
   }
 
-  // Selaimen sisäinen tiedostolataus ilman palvelinta — sama
-  // Blob+ObjectURL-mekanismi kuin missä tahansa muussakin vanilla-JS-
-  // sovelluksessa, ei kirjastoriippuvuutta.
+  // Lataa JSON-tiedoston selaimessa (Blob + ObjectURL).
   function downloadJsonFile(filename, dataObj) {
     var blob = new Blob([JSON.stringify(dataObj, null, 2)], { type: "application/json" });
     var url = URL.createObjectURL(blob);
@@ -4805,15 +4456,8 @@
     URL.revokeObjectURL(url);
   }
 
-  // Vientitiedoston rivit ovat itsenäisiä nimien varassa (ei id:tä, ei
-  // createdBy/createdAt/updatedBy-kenttiä) — vastaanottava järjestelmä on
-  // eri asennus, jolla on omat kategoria/alakategoria/omistaja-id:t, ja
-  // tuonnin lisääjätieto tulee aina *vastaanottajan* omasta API-avaimesta
-  // (ks. "Requirement attribution" CLAUDE.md:ssä), ei viejän tiedoista.
-  // note/acceptanceCondition sen sijaan KUULUVAT mukaan — toisin kuin
-  // id/createdBy/aikaleimat, nämä ovat vaatimuksen omaa sisältöä, ei
-  // tämän asennuksen identiteettiin sidottua tietoa, joten vastaanottajan
-  // on hyödyllistä saada nekin.
+  // Vientitiedoston rivit ilman id:tä ja lisääjä-/aikaleimatietoja;
+  // vastaanottava asennus käyttää nimiä ja tuojan omaa API-avainta.
   function collabExportSelected() {
     var items = state.requirements
       .filter(function (r) { return state.collabSelectedIds.indexOf(r.id) !== -1; })
@@ -4824,16 +4468,8 @@
     downloadJsonFile("vaatimukset-vienti-" + new Date().toISOString().slice(0, 10) + ".json", { items: items });
   }
 
-  // Tuontiosio: tiedoston valinta → esikatselu (ei vielä mitään tallenneta)
-  // → vahvistus lähettää POST /api/collaborate/import:iin, joka luo
-  // puuttuvat kategoriat/alakategoriat/omistajat automaattisesti ja
-  // ohittaa jo olemassa olevat (teksti täsmää) vaatimukset — ks.
-  // "Tee yhteistyötä" CLAUDE.md:ssä.
-  // Itse tiedostonvalintapainike ("Vastaanota tietoja") siirtyi
-  // collabActionsBarHtml()-riville — tämä lohko näyttää enää tuonnin
-  // *seuraukset*: virheilmoituksen, esikatselun tai lopputuloksen.
-  // Renderöi tyhjän merkkijonon, siis näkymättömän divin, silloin kun
-  // yhtäkään näistä ei ole (ei vielä tiedostoa valittu).
+  // Tuonnin tila: virheilmoitus, esikatselu tai lopputulos. Vahvistus
+  // lähettää POST /api/collaborate/import.
   function collabImportBodyHtml() {
     var preview = state.collabImportPreview;
     var result = state.collabImportResult;
@@ -4895,10 +4531,8 @@
     if (el) el.innerHTML = collabImportBodyHtml();
   }
 
-  // Yksi jatkuva näkymä kahden erillisen "Jaa vaatimuksia"/"Vastaanota
-  // vaatimuksia" -vaiheen sijaan: suodatinkortin ja valittavien
-  // vaatimusten listan väliin sijoitettu "Toiminnot"-rivi kokoaa sekä
-  // viennin että tuonnin yhteen paikkaan (ks. collabActionsBarHtml()).
+  // Tee yhteistyötä -näkymä: suodattimet, Toiminnot-rivi, tuonnin tila ja
+  // valittavat vaatimukset.
   function tplCollaborate() {
     if (!state.reqsLoaded) return '<p style="color:var(--muted)">Ladataan…</p>';
     var pool = collabPool();
@@ -5141,9 +4775,7 @@
         }
       }
     } else if (e.target.name === "industry" && e.target.form && e.target.form.id === "addForm") {
-      // Omistajan vaihto tyhjentää Hankinnan kohteet -valinnan, koska
-      // aiemmat valinnat kuuluivat lähes varmasti eri Omistajalle eivätkä
-      // ole enää valideja vaihtoehtoja tälle riville.
+      // Omistajan vaihto tyhjentää hankinnan kohteiden valinnan.
       var ptGroupEl = document.getElementById("procurementTargetGroup");
       if (ptGroupEl) ptGroupEl.innerHTML = procurementTargetToggleGroupHtml(e.target.value, []);
       updateAddFormPreview();
@@ -5209,9 +4841,8 @@
         }
       }
     } else if (e.target.id === "listProcurementTargetSearch") {
-      // Pieni viive ennen pudotusvalikon piilotusta, jotta klikkaus
-      // johonkin combo-option-riviin ehtii rekisteröityä ennen kuin blur
-      // poistaa sen DOM:sta.
+      // Viive, jotta klikkaus pudotusvalikon riviin ehtii rekisteröityä
+      // ennen piilotusta.
       setTimeout(function () {
         var comboDropdownBlur = document.getElementById("listProcurementTargetDropdown");
         if (comboDropdownBlur) comboDropdownBlur.hidden = true;
@@ -5911,10 +5542,8 @@
     }
   });
 
-  // Yleinen varmistus: monet muokkaus-/poistotoiminnot eivät itse käsittele
-  // apiFetch()-virheitä (esim. showConfirm-callbackit) — ilman tätä ne
-  // jäisivät hiljaisiksi "unhandled promise rejection" -virheiksi, esim.
-  // kun API-avain on vain luku -avain ja käyttäjä yrittää silti muokata.
+  // Näyttää käsittelemättömät apiFetch()-virheet bannerina (esim. vain
+  // luku -avaimen 403).
   window.addEventListener("unhandledrejection", function (e) {
     var msg = e.reason && e.reason.message;
     if (!msg) return;

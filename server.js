@@ -12,13 +12,9 @@ const path = require("path");
 const crypto = require("crypto");
 
 const PORT = process.env.PORT || 3000;
-// Natiivi HTTPS on valinnainen: käytettävissä API-avain kulkee (X-API-Key)
-// selkeätekstinä, joten se on suojattu vain jos liikenne kulkee TLS:n yli —
-// joko tämän kautta tai edessä olevan reverse proxyn (nginx/IIS/Caddy)
-// kautta. Oletuksena kumpaakaan HTTPS_CERT_FILE/HTTPS_KEY_FILE-muuttujaa ei
-// ole asetettu, jolloin palvelin käynnistyy ennallaan pelkkänä HTTP-
-// palvelimena (esim. reverse proxyn taakse tarkoitetut asennukset) — ks.
-// "Käyttöönotto (on-premise)" vaatimusmäärittelyssä.
+// Valinnainen HTTPS: jos sekä HTTPS_CERT_FILE että HTTPS_KEY_FILE on
+// asetettu, palvelin kuuntelee HTTPS:llä, muuten HTTP:llä (esim. reverse
+// proxyn takana, joka hoitaa TLS:n).
 const HTTPS_CERT_FILE = process.env.HTTPS_CERT_FILE;
 const HTTPS_KEY_FILE = process.env.HTTPS_KEY_FILE;
 const DATA_DIR = path.join(__dirname, "data");
@@ -57,13 +53,9 @@ function parseApiKeys(raw) {
     .filter((k) => k.key);
 }
 
-// Reitit, jotka muokkaavat taustatietoja (kategoriat/alakategoriat/
-// omistajat/yritykset/fraasit) — joko suoraan (CRUD-reitit) tai
-// sivuvaikutuksena (seed-alustus ja "Tee yhteistyötä" -tuonti voivat
-// molemmat luoda uusia kategorioita/alakategorioita/omistajia). "no-admin"
-// -avain saa tehdä GET-pyyntöjä normaalisti (koko data, taustatiedot
-// mukaan lukien, tulee yhden GET /api/state -kutsun mukana, eikä sitä
-// rajoiteta) mutta ei mitään kirjoittavaa pyyntöä näihin polkuihin.
+// Reitit, jotka muokkaavat taustatietoja suoraan tai sivuvaikutuksena
+// (seed ja tuonti). "no-admin"-avain ei saa tehdä niihin muita kuin
+// GET-pyyntöjä.
 const ADMIN_DATA_PATHS = ["/categories", "/subcategories", "/industries", "/companies", "/phrases", "/procurement-targets", "/seed", "/collaborate/import"];
 
 function isAdminDataPath(reqPath) {
@@ -72,12 +64,9 @@ function isAdminDataPath(reqPath) {
 
 const API_KEYS = parseApiKeys(process.env.API_KEYS);
 
-// Vakioaikainen merkkijonovertailu — estää ajoitushyökkäyksen, jossa
-// avainta arvattaisiin merkki kerrallaan vastausaikoja mittaamalla.
-// timingSafeEqual vaatii samanpituiset puskurit, joten molemmat
-// merkkijonot tiivistetään ensin kiinteän mittaisiksi (sha256) sen sijaan
-// että alkuperäisten pituuksien mahdollinen ero paljastuisi jo ennen
-// vertailua.
+// Vakioaikainen merkkijonovertailu (ajoitushyökkäyksiä vastaan). Merkkijonot
+// tiivistetään ensin sha256:lla, koska timingSafeEqual vaatii samanpituiset
+// puskurit.
 function timingSafeStringEqual(a, b) {
   const bufA = crypto.createHash("sha256").update(String(a)).digest();
   const bufB = crypto.createHash("sha256").update(String(b)).digest();
@@ -277,7 +266,7 @@ app.delete("/api/subcategories/:id", (req, res) => {
   persist().then(() => res.status(204).end()).catch((e) => res.status(500).json({ error: String(e) }));
 });
 
-// --- Omistajat (kentän/rajapinnan nimi "industry" on historiallinen, ks. docs/vaatimusmaarittely.md) ---
+// --- Omistajat (koodissa ja rajapinnassa "industry") ---
 app.post("/api/industries", (req, res) => {
   const { name, responsibleTitle } = req.body || {};
   if (!name || !responsibleTitle) return res.status(400).json({ error: "name ja responsibleTitle ovat pakollisia" });
@@ -406,9 +395,7 @@ app.delete("/api/phrases/:id", (req, res) => {
   persist().then(() => res.status(204).end()).catch((e) => res.status(500).json({ error: String(e) }));
 });
 
-// --- Hankinnan kohteet (sidottu Omistajaan nimellä — ainoa kokoelma, joka
-// viittaa toiseen taustatietokokoelmaan; kategoria/alakategoria/omistaja
-// ovat kaikki tasaisia eivätkä viittaa toisiinsa, ks. docs) ---
+// --- Hankinnan kohteet (sidottu Omistajaan nimellä) ---
 app.post("/api/procurement-targets", (req, res) => {
   const { name, industry } = req.body || {};
   if (!name || !industry) return res.status(400).json({ error: "name ja industry ovat pakollisia" });
@@ -435,8 +422,7 @@ app.put("/api/procurement-targets/:id", (req, res) => {
           const idx2 = l.procurementTargets.indexOf(oldName);
           if (idx2 !== -1) l.procurementTargets[idx2] = name;
         } else if (l.procurementTarget === oldName) {
-          // Taaksepäinyhteensopivuus: dokumentit, jotka on luotu ennen
-          // monivalintaa, kantavat vielä vanhaa yksittäisarvoista kenttää.
+          // Dokumentti, jolla on yksittäisarvoinen procurementTarget-kenttä.
           l.procurementTarget = name;
         }
       });
@@ -452,12 +438,9 @@ app.delete("/api/procurement-targets/:id", (req, res) => {
 });
 
 // ---------- Seed-data (kategoriat/alakategoriat/omistajat/fraasit) ----------
-// data/seed.json on ihmisen muokattava mallitiedosto (ei gitignoroitu,
-// toisin kuin data/db.json). POST /api/seed lisää siitä vain ne rivit,
-// joita ei jo löydy järjestelmästä (nimivertailu, case-insensitive;
-// fraaseille tekstin vertailu, koska fraaseilla ei muuten ole
-// uniikkiusvaatimusta) — ei koskaan muokkaa tai poista olemassa olevaa
-// dataa, joten toimenpiteen voi ajaa turvallisesti uudelleen.
+// POST /api/seed lisää data/seed.json-tiedostosta ne rivit, joita ei vielä
+// ole (nimet kirjainkoosta riippumatta, fraaseilla teksti). Olemassa olevaa
+// dataa ei muokata eikä poisteta, joten kutsun voi toistaa.
 const SEED_FILE = path.join(DATA_DIR, "seed.json");
 
 app.post("/api/seed", (req, res) => {
@@ -493,17 +476,10 @@ app.post("/api/seed", (req, res) => {
   persist().then(() => res.json(result)).catch((e) => res.status(500).json({ error: String(e) }));
 });
 
-// "Tee yhteistyötä" -näkymän tuonti: vastaanottaa toiselta
-// vaatimusrekisterin käyttäjältä/asennukselta saadun, itsenäisen
-// (id-riippumattoman) vaatimuslistan. Puuttuvat kategoriat/alakategoriat/
-// omistajat luodaan automaattisesti (nimen perusteella, kirjainkoosta
-// riippumatta) — muuten yksikin puuttuva luokka estäisi koko rivin
-// tuonnin. Omistajan responsibleTitle ei sisälly vientitiedostoon, joten
-// automaattisesti luodulle omistajalle jää täytettävä placeholder-nimike.
-// Jo olemassa oleva vaatimus (sama teksti, kirjainkoosta riippumatta)
-// ohitetaan, jottei tuonti tuota duplikaatteja. Lisääjä luetaan aina
-// tuojan omasta API-avaimesta, ei tiedoston sisällöstä — sama periaate
-// kuin POST /api/requirements:ssa.
+// "Tee yhteistyötä" -tuonti: lisää vientitiedoston vaatimukset. Puuttuvat
+// kategoriat/alakategoriat/omistajat luodaan nimen perusteella; uudelle
+// omistajalle asetetaan placeholder-nimike. Vaatimus, jonka teksti on jo
+// olemassa, ohitetaan. Lisääjä tulee tuojan API-avaimesta.
 app.post("/api/collaborate/import", (req, res) => {
   const items = Array.isArray((req.body || {}).items) ? req.body.items : [];
   const createdBy = req.apiKeyInfo ? req.apiKeyInfo.name : "";

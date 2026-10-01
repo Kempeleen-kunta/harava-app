@@ -12,7 +12,6 @@ data on kaikille yhteinen ja tallentuu palvelimelle tiedostoon `data/db.json`.
 - Node.js 18 tai uudempi (`node -v` tarkistaa version)
 - Verkkoyhteys asennusvaiheessa pakettien lataamiseen (`npm install`), ei
   käytön aikana
-- Muut sovelluksen vaatimukset löytyvät tiedostosta `docs/vaatimusmaarittely.md`
 
 ## Asennus ja käynnistys
 
