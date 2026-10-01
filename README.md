@@ -16,7 +16,7 @@ data on kaikille yhteinen ja tallentuu palvelimelle tiedostoon `data/db.json`.
 ## Asennus ja käynnistys
 
 ```bash
-cd vaati
+cd <hakemisto>
 npm install
 npm start
 ```
