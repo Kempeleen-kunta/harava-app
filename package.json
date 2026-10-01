@@ -1,0 +1,17 @@
+{
+  "name": "harava",
+  "version": "1.0.0",
+  "description": "HARAVA (Hankintojen rakenteelliset vaatimukset) - on-premise-sovellus jaetulle vaatimuskirjastolle, kategorioille ja listoille.",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "categories": [
+    "Toiminnallisuus",
+    "Tekninen toteutus",
+    "Tietoturva ja tietosuoja",
+    "Käyttö ja käyttäjähallinta",
+    "Palvelutaso",
+    "Toimitus ja käyttöönotto",
+    "Sopimus ja vastuut",
+    "Laatu ja vaatimustenmukaisuus",
+    "Vastuullisuus",
+    "Dokumentaatio",
+    "Osaaminen ja yhteistyö",
+    "Ylläpito ja jatkuvuus"
+  ],
+  "subcategories": [
+    "Yleinen",
+    "Toiminnallisuus",
+    "Ominaisuudet",
+    "Yhteensopivuus",
+    "Integraatiot",
+    "Tietoturva",
+    "Tietosuoja",
+    "Käyttöoikeudet ja valtuutukset",
+    "Käyttöliittymä",
+    "Käyttöympäristö",
+    "Palvelutaso",
+    "Palveluaika",
+    "Vasteaika",
+    "Saatavuus",
+    "Käyttökatkot",
+    "Toimitusaika",
+    "Toimitustapa",
+    "Toimitusalue",
+    "Toimitusmäärä",
+    "Toimitusvarmuus",
+    "Toimitusketju",
+    "Omistusoikeus",
+    "Takuu",
+    "Sopimusehto",
+    "Sanktiot",
+    "Alihankinta",
+    "Dokumentaatio",
+    "Käyttöohjeet",
+    "Liitteet",
+    "Osaaminen",
+    "Yhteistyö",
+    "Varautuminen",
+    "Sertifioinnit",
+    "Standardit",
+    "Vastuullisuus",
+    "Ekologisuus",
+    "Materiaalit",
+    "Raaka-aineet",
+    "Valmistusprosessi",
+    "Valmistusmaa"
+  ],
+  "industries": [
+    { "name": "Tietohallinto", "responsibleTitle": "Tietohallintopäällikkö" },
+    { "name": "Varhaiskasvatus", "responsibleTitle": "Varhaiskasvatusjohtaja" },
+    { "name": "Talous", "responsibleTitle": "Talousjohtaja" },
+    { "name": "Hallinto", "responsibleTitle": "Hallintojohtaja" },
+    { "name": "Tekninen", "responsibleTitle": "Tekninen johtaja" },
+    { "name": "Henkilöstö", "responsibleTitle": "Henkilöstöpäällikkö" },
+    { "name": "Sivistys", "responsibleTitle": "Sivistysjohtaja" },
+    { "name": "Johto", "responsibleTitle": "Kunnanjohtaja" },
+    { "name": "Kulttuuri", "responsibleTitle": "Kulttuurijohtaja" },
+    { "name": "Liikenne", "responsibleTitle": "Liikenneinsinööri" },
+    { "name": "Rakennus", "responsibleTitle": "Rakennusmestari" },
+    { "name": "Ympäristö", "responsibleTitle": "Ympäristöpäällikkö" }
+  ],
+  "phrases": [
+    {
+      "text": "Laitteessa tulee olla vähintään [määrä] Gt keskusmuistia.",
+      "category": "Toiminnallisuus",
+      "subcategory": "Ominaisuudet"
+    },
+    {
+      "text": "Laitteessa tulee olla vähintään [määrä] Gt tallennuskapasiteettia.",
+      "category": "Toiminnallisuus",
+      "subcategory": "Ominaisuudet"
+    },
+    {
+      "text": "Laitteen prosessorin suorituskyvyn tulee olla vähintään [vaatimus].",
+      "category": "Toiminnallisuus",
+      "subcategory": "Ominaisuudet"
+    },
+    {
+      "text": "Laitteessa tulee olla vähintään [määrä] kappaletta [liitäntä]-liitäntöjä.",
+      "category": "Toiminnallisuus",
+      "subcategory": "Ominaisuudet"
+    },
+    {
+      "text": "Laitteen akun käyttöajan tulee olla vähintään [aika].",
+      "category": "Toiminnallisuus",
+      "subcategory": "Ominaisuudet"
+    },
+    {
+      "text": "Laitteen tulee olla yhteensopiva käyttöjärjestelmän [käyttöjärjestelmä] kanssa.",
+      "category": "Toiminnallisuus",
+      "subcategory": "Yhteensopivuus"
+    },
+    {
+      "text": "Laitteen tulee tukea standardia [standardi].",
+      "category": "Laatu ja vaatimustenmukaisuus",
+      "subcategory": "Standardit"
+    },
+    {
+      "text": "Laitteessa tulee olla käytettävissä TPM-versio [versio] tai sitä uudempi.",
+      "category": "Tietoturva ja tietosuoja",
+      "subcategory": "Tietoturva"
+    },
+    {
+      "text": "Laitteelle tulee myöntää vähintään [aika] valmistajan takuu.",
+      "category": "Sopimus ja vastuut",
+      "subcategory": "Takuu"
+    },
+    {
+      "text": "Laitteelle tulee olla hankittavissa vähintään [aika] valmistajan takuulaajennus.",
+      "category": "Sopimus ja vastuut",
+      "subcategory": "Takuu"
+    },
+    {
+      "text": "Laitteelle tulee olla hankittavissa [huoltotyyppi] takuulaajennus.",
+      "category": "Sopimus ja vastuut",
+      "subcategory": "Takuu"
+    },
+    {
+      "text": "Laitteen toimitusajan tulee olla enintään [aika] tilauksesta.",
+      "category": "Toimitus ja käyttöönotto",
+      "subcategory": "Toimitusaika"
+    }
+  ]
+}
